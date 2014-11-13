@@ -1,0 +1,58 @@
+<Response xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/search/local/ws/rest/v1">
+  <Copyright>
+    Copyright © 2011 Microsoft and its suppliers. All rights reserved. This API cannot be accessed and the content and any results may not be used, reproduced or transmitted in any manner without express written permission from Microsoft Corporation.
+  </Copyright>
+  <BrandLogoUri>
+    http://dev.virtualearth.net/Branding/logo_powered_by.png
+  </BrandLogoUri>
+  <StatusCode>200</StatusCode>
+  <StatusDescription>OK</StatusDescription>
+  <AuthenticationResultCode>ValidCredentials</AuthenticationResultCode>
+  <TraceId>
+    558732d648204c958546678579cbc5cb
+  </TraceId>
+  <ResourceSets>
+    <ResourceSet>
+      <EstimatedTotal>1</EstimatedTotal>
+      <Resources>
+        <Location>
+          <Name>1 Microsoft Way, Redmond, WA 98052</Name>
+          <Point>
+            <Latitude>47.640120461583138</Latitude>
+            <Longitude>-122.12971039116383</Longitude>
+          </Point>
+          <BoundingBox>
+            <SouthLatitude>47.636257744012461</SouthLatitude>
+            <WestLongitude>-122.13735364288299</WestLongitude>
+            <NorthLatitude>47.643983179153814</NorthLatitude>
+            <EastLongitude>-122.12206713944467</EastLongitude>
+          </BoundingBox>
+          <EntityType>Address</EntityType>
+          <Address>
+            <AddressLine>1 Microsoft Way</AddressLine>
+            <AdminDistrict>WA</AdminDistrict>
+            <AdminDistrict2>King Co.</AdminDistrict2>
+            <CountryRegion>United States</CountryRegion>
+            <FormattedAddress>1 Microsoft Way, Redmond, WA 98052</FormattedAddress>
+            <Locality>Redmond</Locality>
+            <PostalCode>98052</PostalCode>
+          </Address>
+          <Confidence>High</Confidence>
+          <MatchCode>Good</MatchCode>
+          <GeocodePoint>
+            <Latitude>47.640120461583138</Latitude>
+            <Longitude>-122.12971039116383</Longitude>
+            <CalculationMethod>InterpolationOffset</CalculationMethod>
+            <UsageType>Display</UsageType>
+          </GeocodePoint>
+          <GeocodePoint>
+            <Latitude>47.640144601464272</Latitude>
+            <Longitude>-122.12976671755314</Longitude>
+            <CalculationMethod>Interpolation</CalculationMethod>
+            <UsageType>Route</UsageType>
+          </GeocodePoint>
+        </Location>
+      </Resources>
+    </ResourceSet>
+  </ResourceSets>
+</Response>
