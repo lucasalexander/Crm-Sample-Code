@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Case stream</title>
+    <style>
+      #records { list-style-type: none; margin: 0; padding: 0; }
+      #records li { padding: 5px 10px; }
+      #records li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <h2>Case stream</h2>
+    <ul id="records"></ul>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  var socket = io("http://lucas-ajax.cloudapp.net:3000");
+  socket.on('message', function(msg){
+    var obj = jQuery.parseJSON( msg );
+	if(obj.entity==="incident"){
+	  $('#records').append($('<li>'+obj.operation + ' - <a href="https://lucas-ajax.cloudapp.net/Lucas01/main.aspx?etc=112&pagetype=entityrecord&id='+obj.id+'" target="_blank">'+obj.ticketnumber+'</a>'));
+	}
+  });
+</script>
+  </body>
+</html>

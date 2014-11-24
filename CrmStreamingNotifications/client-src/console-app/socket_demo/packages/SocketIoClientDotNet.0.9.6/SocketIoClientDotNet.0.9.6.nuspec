@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SocketIoClientDotNet</id>
+    <version>0.9.6</version>
+    <title>SocketIoClientDotNet</title>
+    <authors>Matthias Ludwig</authors>
+    <owners>Matthias Ludwig</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/Quobject/SocketIoClientDotNet/</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>This is the Socket.IO Client Library for C#.</description>
+    <summary>This library supports all of the features the JS client does, including events, options and upgrading transport. SocketIoClientDotNet has a similar api to those of the JavaScript client.</summary>
+    <releaseNotes>support for cookies</releaseNotes>
+    <tags>socket.io.client</tags>
+    <dependencies>
+      <group targetFramework="Windows0.0">
+        <dependency id="Newtonsoft.Json" version="6.0.5" />
+        <dependency id="EngineIoClientDotNet" version="0.9.11" />
+      </group>
+      <group targetFramework=".NETPortable0.0-wpa81+wp81">
+        <dependency id="Newtonsoft.Json" version="6.0.5" />
+        <dependency id="EngineIoClientDotNet" version="0.9.11" />
+      </group>
+      <group targetFramework=".NETFramework3.5">
+        <dependency id="WebSocket4Net" version="0.10" />
+        <dependency id="Newtonsoft.Json" version="6.0.5" />
+        <dependency id="System.Threading.Tasks" version="3.0.1" />
+        <dependency id="EngineIoClientDotNet" version="0.9.11" />
+      </group>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="WebSocket4Net" version="0.10" />
+        <dependency id="Newtonsoft.Json" version="6.0.5" />
+        <dependency id="EngineIoClientDotNet" version="0.9.11" />
+      </group>
+      <group targetFramework="WindowsPhone8.0">
+        <dependency id="WebSocket4Net" version="0.10" />
+        <dependency id="Newtonsoft.Json" version="6.0.5" />
+        <dependency id="EngineIoClientDotNet" version="0.9.11" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web" targetFramework=".NETFramework4.5" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

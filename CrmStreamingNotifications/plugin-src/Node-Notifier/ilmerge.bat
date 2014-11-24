@@ -1,0 +1,1 @@
+..\tools\ilmerge /keyfile:node-notifier.snk /copyattrs /out:bin\debug\Node-Notifier.Merged.dll bin\debug\Node-Notifier.dll bin\debug\Newtonsoft.Json.dll
