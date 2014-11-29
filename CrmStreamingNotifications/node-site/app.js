@@ -20,16 +20,6 @@ function handler (request, response) {
 			}
 			response.end();
 			break;
-		case '/streamview':
-			fs.readFile('streamview.htm', function (err, html) {
-				if (err) {
-					throw err; 
-				}       
-				response.writeHeader(200, {"Content-Type": "text/html"});
-				response.write(html); 
-				response.end();  
-			});
-			break;
 	}
 }
 var port = process.env.PORT || 3000;
