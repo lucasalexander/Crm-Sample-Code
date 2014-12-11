@@ -24,6 +24,13 @@ This solution shows an method for scheduling recurring workflows in Dynamics CRM
 ###CrmStreamingNotifications
 This is a proof-of-concept solution for implementing a near real-time streaming API for Dynamics CRM with Node.js and Socket.IO. A video demonstration of the solution in action can be seen here: http://youtu.be/j7rG9qD3ycg.
 
+I also wrote a four-part blog series about this topic.
+
+- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 1"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Creating-a-near-real-time-streaming-interface-for-Dynamics-CRM/ba-p/178149)
+- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 2"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Creating-a-near-real-time-streaming-interface-for-Dynamics-CRM/ba-p/178153)
+- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 3"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Creating-a-near-real-time-streaming-interface-for-Dynamics-CRM/ba-p/178160)
+- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 4"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Creating-a-near-real-time-streaming-interface-for-Dynamics-CRM/ba-p/178495)
+
 ###CrmTeamConnection
 This solution shows an approach to managing Dynamics CRM access team membership with connections and custom workflow activities. This approach was originally discussed in my ["Managing Microsoft Dynamics CRM 2013 access team membership using connections"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Managing-Microsoft-Dynamics-CRM-2013-access-team-membership/ba-p/152491) blog post.
 
