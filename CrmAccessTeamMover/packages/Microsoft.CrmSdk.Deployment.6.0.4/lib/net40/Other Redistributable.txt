@@ -1,0 +1,12 @@
+AntiXSSLibrary.dll
+Microsoft.Crm.Outlook.Sdk.dll
+Microsoft.Crm.Sdk.Proxy.dll
+Microsoft.Crm.Tools.EmailProviders.dll
+Microsoft.Xrm.Client.CodeGeneration.dll
+Microsoft.Xrm.Client.dll
+Microsoft.Xrm.Portal.dll
+Microsoft.Xrm.Portal.Files.dll
+Microsoft.Xrm.Sdk.Deployment.dll
+Microsoft.Xrm.Sdk.dll
+Microsoft.Xrm.Sdk.Workflow.dll
+
