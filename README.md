@@ -1,5 +1,8 @@
 This is a collection of sample code for working with Microsoft Dynamics CRM I have used in a variety of blog posts. Many of the samples were originally written for Dynamics CRM 2011, but each solution has been updated to use the Microsoft Dynamics CRM 2013 Service Pack 1 Update Rollup 1 SDK (version 6.1.1 installed from [NuGet](http://www.nuget.org/packages/Microsoft.CrmSdk.Workflow/6.1.1)). I have verified that each solution builds, but I have not necessarily deployed or tested. USE AT YOUR OWN RISK!
 
+###CrmAccessTeamMover
+This is the solution for a console application to copy/update access team template records from one Dynamics CRM organization to another. It's described in detail in my ["Console application for moving Dynamics CRM access team templates"](http://www.alexanderdevelopment.net/post/2014/12/13/console-application-for-moving-dynamics-crm-access-team-templates) blog post. 
+
 ###CrmDataSnapshots
 This solution shows an approach to taking data "snapshots" in Dynamics CRM, similar to Salesforce's analytic snapshots feature. The solution is described in detail in my ["A Data Snapshot Framework for Dynamics CRM"](http://www.alexanderdevelopment.net/post/2013/07/24/data-snapshot-framework-for-dynamics-crm) blog post. 
 
