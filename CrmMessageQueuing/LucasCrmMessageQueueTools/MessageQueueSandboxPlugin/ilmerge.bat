@@ -1,0 +1,1 @@
+..\tools\ilmerge /keyfile:MessageQueueSandboxPlugin.snk /copyattrs /out:bin\debug\MessageQueueSandboxPlugin.Merged.dll bin\debug\MessageQueueSandboxPlugin.dll bin\debug\Newtonsoft.Json.dll

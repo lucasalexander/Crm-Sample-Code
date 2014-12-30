@@ -1,0 +1,1 @@
+..\tools\ilmerge /keyfile:MessageQueuePlugin.snk /copyattrs /out:bin\debug\MessageQueuePlugin.Merged.dll bin\debug\MessageQueuePlugin.dll bin\debug\Newtonsoft.Json.dll bin\debug\RabbitMQ.Client.dll
