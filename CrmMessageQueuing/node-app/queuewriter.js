@@ -65,6 +65,19 @@ function handler (request, response) {
 				});
 			}
 			break;
+		//used to load sample form for inbound (to CRM) messages for demonstration purposes only
+		//credentials on that page are hard coded in the html source
+		//NEVER USE IN PRODUCTION!!!!
+		case '/leadform': 
+			fs.readFile('leadform.htm', function (err, html) {
+				if (err) {
+					throw err; 
+				}       
+				response.writeHeader(200, {"Content-Type": "text/html"}); 
+				response.write(html); 
+				response.end();  
+			});
+			break;
 	}
 }
 var port = process.env.PORT || 3000;

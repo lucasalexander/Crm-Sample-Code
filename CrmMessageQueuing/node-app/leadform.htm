@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>inbound lead posting demo</title>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<form action="/rabbit_post_endpoint" id="leadForm">
+	First name: <input type="text" name="firstName" /><br />
+	Last name: <input type="text" name="lastName" /><br />
+	Company name: <input type="text" name="companyName" /><br />
+	<input type="submit" value="Submit" />
+	</form>
+	<script>
+	//based on example here: http://api.jquery.com/jQuery.post/
+	
+	// Attach a submit handler to the form
+	$( "#leadForm" ).submit(function( event ) {
+	
+	// Stop form from submitting normally
+	event.preventDefault();
+	
+	// Get some values from elements on the page:
+	var $form = $( this ),
+	firstName = $form.find( "input[name='firstName']" ).val(),
+	lastName = $form.find( "input[name='lastName']" ).val(),
+	companyName = $form.find( "input[name='companyName']" ).val(),
+	url = $form.attr( "action" );
+	
+	//build the message object
+	var messageobject = {
+			endpoint: 'lucas-ajax.cloudapp.net',
+			username: 'rabbituser',
+			password: 'demopass',
+			exchange: 'CRM',
+			routingkey: 'Lead',
+			message:
+			{
+				FirstName: firstName,
+				LastName: lastName,
+				Topic: 'submitted from web page',
+				Company: companyName
+			}
+		};
+		
+	//convert the message object to a json string
+	var message = JSON.stringify(messageobject);
+	
+	// Send the data using post
+	var posting = $.post( url, message );
+	
+	//alert the results
+	posting.done(function( data ) {
+	alert(data);
+	});
+	});
+	</script>
+	</body>
+</html>
