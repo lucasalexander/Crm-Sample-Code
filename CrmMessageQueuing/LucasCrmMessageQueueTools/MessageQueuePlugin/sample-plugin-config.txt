@@ -1,0 +1,25 @@
+<config>
+<endpoint>lucas-ajax.cloudapp.net</endpoint>
+<exchange>CRM</exchange>
+<routingkey>Case</routingkey>
+<user>rabbituser</user>
+<password>PASSWORDHERE</password>
+<query><![CDATA[
+<fetch mapping='logical'>
+<entity name='incident'> 
+ <attribute name='ownerid'/> 
+ <attribute name='modifiedby'/> 
+ <attribute name='createdby'/> 
+ <attribute name='title'/> 
+ <attribute name='incidentid'/> 
+ <attribute name='ticketnumber'/> 
+ <attribute name='createdon'/> 
+ <attribute name='modifiedon'/> 
+ <filter type='and'> 
+  <condition attribute='incidentid' operator='eq' value='{0}' /> 
+ </filter> 
+</entity> 
+</fetch>
+]]>
+</query>
+</config>
