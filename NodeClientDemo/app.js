@@ -1,8 +1,9 @@
 //instantiate our basic objects
 var express = require('express')
-var session = require('express-session');
+var session = require('express-session')
+var https = require('https')
+var url = require('url')
 var app = express()
-var https = require('https');
 
 //set up the session object
 app.use(session({secret: 'somesecret'}));
@@ -13,10 +14,6 @@ var sess;
 var client_id = 'ab762716-544d-4aeb-a526-687b73838a33';
 var oauth_resource = 'https://auth.ajax.alexanderdevelopment.net';
 var redirect_uri = 'http://localhost:3000/auth/callback';
-
-//host and port for your AD FS service - this is hardcoded in this example, but it should be queried from CRM - see https://msdn.microsoft.com/en-us/library/dn531009.aspx#bkmk_oauth_discovery for details
-var oauth_host = 'sts.ajax.alexanderdevelopment.net';
-var oauth_port = 444;
 
 //host and port for your CRM organization
 var crm_host = 'lucas01.ajax.alexanderdevelopment.net'
@@ -47,10 +44,59 @@ app.get('/', function (req, res) {
   res.end();
 })
 
-//route for the login page - this will just redirect to the AD FS oauth authorization endpoint
+//route for the login page - queries CRM for the authorization uri and redirects the browser
 app.get('/auth/login', function (req, res) {
-    sess=req.session;
-    res.redirect('https://' + oauth_host + ':' + oauth_port +'/adfs/oauth2/authorize?response_type=code&client_id='+client_id+'&resource='+oauth_resource+'&redirect_uri='+redirect_uri);
+  //set up a get request to the CRM organizationdata service to find the authorization URI - see https://msdn.microsoft.com/en-us/library/dn531009.aspx#bkmk_oauth_discovery for details
+
+  //get session cookie to store the authorization uri for use in the authorization callback route
+  sess=req.session;
+
+  //set a header to tell the endpoint we are looking for the oauth authorization endpoint
+  var headers = {
+    'Authorization': 'Bearer'
+  }
+
+  //build the request details
+  var options = {
+    host : crm_host,
+    port : crm_port,
+    path : '/XRMServices/2011/OrganizationData.svc/web?SdkClientVersion=6.1.0.533', 
+    method : 'GET',
+    rejectUnauthorized: false,//to allow for self-signed SSL certificates - use at your own risk!!!
+    headers : headers //set in the previous step
+  };
+
+  //make the request - the authorization uri is returned in the www-authenticate header
+  var reqGet = https.request(options, function(resGet) {
+    //log all the headers
+    console.log("headers: ", resGet.headers);
+    
+    //get the www-authenticate header
+    var authheader = resGet.headers['www-authenticate'];
+    
+    //strip out the bearer authorization uri bit at the beginning
+    var authuri = authheader.replace('Bearer authorization_uri=','');
+    
+    //drop anything that ADFS includes in that header anything after the uri
+    if(authuri.indexOf(',')>0) {
+      authuri = authuri.substr(0, authuri.indexOf(','));
+    }
+    
+    //log the uri, which should be just a regular url at this point
+    console.log("authuri: ", authuri);
+    
+    //store it in the session cookie
+    sess.authuri = authuri;
+    
+    //redirect the browser to the authorization uri with the proper query string - see https://github.com/nordvall/TokenClient/wiki/OAuth-2-Authorization-Code-grant-in-ADFS for details
+    res.redirect(authuri+'?response_type=code&client_id='+client_id+'&resource='+oauth_resource+'&redirect_uri='+redirect_uri);
+  });
+  reqGet.end();
+  
+  //handle errors
+  reqGet.on('error', function(e) {
+    console.error(e);
+  });
 })
 
 //this page queries CRM for the entire contact set using the access token stored in the session cookie
@@ -83,8 +129,9 @@ app.get('/authenticated/contacts', function (req, res) {
       headers : headers //set in the previous step
     };
     
-    
     var reqGet = https.request(options, function(resGet) {
+      //should do something here if we get 'www-authenticate': 'Bearer error' response headers
+      console.log("headers: ", resGet.headers);
       resGet.on('data', function(d) {
         console.info('raw response: ' + d);
         var json = JSON.parse(d);
@@ -121,14 +168,22 @@ app.get('/authenticated/contacts', function (req, res) {
 
 //this page handles the callback from AD FS with the authorization code
 app.get('/auth/callback', function (req, res) {
+  console.log(req.headers);
+  
   //get a reference to the session cookie
   sess=req.session;
-
+  
   //parse the authorization code from the querystring
   var authcode = req.query.code;
 
   //now we need to post the authorization code to AD FS to get the access token
 
+  //get the original authuri from the session cookie - we ned to know the host and port number
+  var authuri = sess.authuri;
+  
+  //parse the authuri so we can get the host and port name
+  var parsedauthuri = url.parse(authuri);
+  
   //prepare the header for the post request
   var headers = {
     'Content-Type' : 'application/x-www-form-urlencoded'
@@ -136,8 +191,8 @@ app.get('/auth/callback', function (req, res) {
 
   //set options for the post request
   var options = {
-    host : oauth_host,
-    port : oauth_port,
+    host : parsedauthuri.hostname,
+    port : parsedauthuri.port,
     path : '/adfs/oauth2/token',
     method : 'POST',
     rejectUnauthorized: false, //to allow for self-signed SSL certificates - use at your own risk!!!
@@ -149,9 +204,9 @@ app.get('/auth/callback', function (req, res) {
 
   //set up the post request
   var reqPost = https.request(options, function(resPost) {
-    //log headers and post string
-    console.log("headers: ", resPost.headers);
-    console.log("formvals: ", formvals);
+    ////log headers and post string
+    //console.log("headers: ", resPost.headers);
+    //console.log("formvals: ", formvals);
 
     //set up the event handler for when we get a response
     resPost.on('data', function(d) {
@@ -192,4 +247,3 @@ var server = app.listen(3000, function () {
   var port = server.address().port
   console.log('Example app listening at http://%s:%s', host, port)
 })
-

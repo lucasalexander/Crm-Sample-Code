@@ -5,6 +5,7 @@
   "dependencies": { 
     "express": "latest", 
     "express-session": "latest", 
+    "url": "latest", 
     "debug": "~0.7.2"
   },
   "engine": "node >= 0.4.1"
