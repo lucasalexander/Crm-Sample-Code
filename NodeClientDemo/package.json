@@ -1,11 +1,10 @@
 {
-  "name": "CrmNodeClient",
-  "description": "just messing around",
+  "name": "LucasCrmNodeOauthDemo",
+  "description": "proof of concept showing how to authenticate from Node.js to Dynamics CRM via ADFS & OAuth2",
   "author": "Lucas Alexander <lucas@alexanderdevelopment.net>",
   "dependencies": { 
     "express": "latest", 
     "express-session": "latest", 
-    "url": "latest", 
     "debug": "~0.7.2"
   },
   "engine": "node >= 0.4.1"
