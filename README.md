@@ -54,6 +54,9 @@ This solution contains samples from my ["Unit testing custom Microsoft Dynamics 
 - DemoCrmPlugin shows the testing approach for plug-ins described in [part 6](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-Code-Part-6/ba-p/148219) of the series.
 - DemoCrmWorkflowActivities shows the testing approach for custom workflow activities described in parts [5](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-Code-Part-5/ba-p/147873), [7](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-Code-Part-7/ba-p/148385) and [8](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-code-Part-8/ba-p/148395) of the series.
 
+###NodeClientDemo
+This sample shows how to connect from Node.js to Dynamics CRM using AD FS and OAuth2 for authentication. This [blog post](http://www.alexanderdevelopment.net/post/2015/01/24/authenticating-from-a-node.js-client-to-dynamics-crm-via-ad-fs-and-oauth2) has additional information explaining the structure of the solution and the application flow.
+
 ###misc-code-samples
 This directory contains code samples that don't fit anywhere else.
 - CrmUsernamePasswordValidator.cs and crmidentity.cs are both used to support validation of WCF services with Dynamics CRM user credentials as discussed in my ["Custom WCF service authentication using Microsoft Dynamics CRM credentials"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Custom-WCF-service-authentication-using-Microsoft-Dynamics-CRM/ba-p/143465) and ["Custom identity class to represent Dynamics CRM users in WCF services"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Custom-identity-class-to-represent-Dynamics-CRM-users-in-WCF/ba-p/144925) blog posts.
