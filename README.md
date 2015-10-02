@@ -16,7 +16,7 @@ This solution shows an approach to working with key-value pair (KVP) data in Dyn
 - ["Working with key-value pair data inside Microsoft Dynamics CRM workflows – part 2"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Working-with-key-value-pair-data-inside-Microsoft-Dynamics-CRM/ba-p/153037).
 
 ###CrmMessageQueuing
-This is a collection of code for using [RabbitMQ](http://www.rabbitmq.com/) as a message broker with Dynamics CRM data interfaces.
+This is a collection of code for using [RabbitMQ](http://www.rabbitmq.com/) as a message broker with Dynamics CRM data interfaces. I haven't yet published the explanatory blog posts, but I expect them to be online by the end of January. For now I've attempted so summarize each component in the collection.
 
 - LucasCrmMessageQueueTools/CliConsumer - This is a sample console application that reads messages from a RabbitMQ queue and writes them to the CLI.
 - LucasCrmMessageQueueTools/CliProvider - This is a sample console application that reads messages from the CLI and publishes them to a RabbitMQ exchange.
@@ -24,15 +24,6 @@ This is a collection of code for using [RabbitMQ](http://www.rabbitmq.com/) as a
 - LucasCrmMessageQueueTools/MessageQueuePlugin - This is a CRM plug-in that publishes notification messages to a RabbitMQ exchange using the RabbitMQ .Net client. This plug-in cannot be executed in the Dynamics CRM sandbox.
 - LucasCrmMessageQueueTools/MessageQueueSandboxPlugin - This is a CRM plug-in that posts notification messages a Node.js application (see the "node-app" item below), which then publishes the messages to a RabbitMQ exchange using the [node-amqp library](https://github.com/postwait/node-amqp/).
 - node-app - This contains the queuewriter.js Node.js application that is used by the MessageQueueSandboxPlugin plug-in. Additionally the leadform.htm web form can be used to submit lead data that will be processed by the LeadWriterSample application.
-
-Here are the relevant blog posts:
-
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 1](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179107)
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 2](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179180)
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 3](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179282)
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 4](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179284)
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 5](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179289)
-
 
 ###CrmRegexTools
 This solution shows how to validate and extract text inside Dynamics CRM custom workflow activities using regular expressions. This approach was originally discussed in these two blog posts:
