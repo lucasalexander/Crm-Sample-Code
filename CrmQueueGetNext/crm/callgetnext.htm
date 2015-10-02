@@ -1,0 +1,189 @@
+<html>
+<head>
+<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.js"></script>
+<script src="ClientGlobalContext.js.aspx"></script> 
+</head>
+<body>
+<input type="Submit" value="Get next case" onClick="javascript:executeGetNextCommand();" /> 
+<div id="outputdiv" style="width:300px;height:200px;"></div>
+<script type="text/javascript"> 
+//path to CRM root - you may need to modify this depending on your particular situation
+var _server = window.location.protocol + "//" + window.location.host + "/" + _getContext().getOrgUniqueName();
+
+//full path to CRM organization service 
+var _path = _server + "/XRMServices/2011/Organization.svc/web";
+
+//default values
+var _queueid = "00000000-0000-0000-0000-000000000000";
+var _assign = "false";
+var _removeFromQueue = "false";
+
+function _getContext() {
+	var errorMessage = "Context is not available.";
+	if (typeof GetGlobalContext != "undefined"){ 
+		return GetGlobalContext(); 
+	}
+	else {
+		if (typeof Xrm != "undefined") {
+			return Xrm.Page.context;
+		}
+		else { 
+			throw new Error(errorMessage); 
+		}
+	}
+}
+
+//parse the data querystring value
+function getDataParam() {
+	var vals = new Array();
+	if (location.search != "") {
+		vals = location.search.substr(1).split("&");
+		for (var i in vals) {
+			vals[i] = vals[i].replace(/\+/g, " ").split("=");
+		}
+
+		//look for the parameter named 'data'
+		var found = false;
+		for (var i in vals) {
+			if (vals[i][0].toLowerCase() == "data") {
+				parseDataValue(vals[i][1]);
+				found = true;
+				break;
+			}
+		}
+	}
+}
+
+//extract encoded querystring values from the "data" value
+function parseDataValue(datavalue) {
+	if (datavalue != "") {
+		var vals = new Array();
+		vals = decodeURIComponent(datavalue).split("&");
+
+		for (var i in vals) {
+			vals[i] = vals[i].replace(/\+/g, " ").split("=");
+		}
+
+		for (var i in vals) {
+			if(vals[i][0]=="queue"){
+				_queueid = vals[i][1];
+			}
+			if(vals[i][0]=="assign"){
+				_assign = vals[i][1];
+			}
+			if(vals[i][0]=="remove"){
+				_removeFromQueue = vals[i][1];
+			}
+		}
+	}
+}
+
+//command to start getnext action call when button is pushed  
+function executeGetNextCommand() { 
+	getDataParam();
+	$("#outputdiv").text("");
+	var actionRequest = buildActionRequest();
+	sendQuery(actionRequest);
+} 
+
+//make the action request and handle the response
+function sendQuery(actionRequest) {
+	$.ajax({
+		type: "POST",
+		dataType: "xml",
+		contentType: "text/xml; charset=utf-8",
+		processData: false,
+		url: _path,
+		data: actionRequest,
+		beforeSend: function( xhr ){
+			xhr.setRequestHeader(
+				"SOAPAction",
+				"http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/Execute"
+			); //without the SOAPAction header, CRM will return a 500 error
+		}
+	}).done(function(data) {
+		//if successful, pass returned xml to processing function
+		processData(data);
+	}).fail(function(jqXHR, textStatus, errorThrown ) {
+		//if unsuccessful, generate an error alert message
+		alert( "Request failed: " + textStatus + "\n" + errorThrown  );
+	});
+}
+
+//process the response from the action call
+function processData(xml) {
+	var caseId = "";
+	var caseNumber = "";
+	
+	$(xml).find("a\\:KeyValuePairOfstringanyType, KeyValuePairOfstringanyType").each(function() {
+		var xmlElement = $(this);
+		var key = xmlElement.find("b\\:key, key").text();
+		if(key == "CaseNumber") {
+			caseNumber = xmlElement.find("b\\:value, value").text();
+		}
+		if(key == "CaseId") {
+			caseId = xmlElement.find("b\\:value, value").text();
+		}
+	});
+	
+	//if a case is found, display the case number as a hyperlink
+	if(caseId != '00000000-0000-0000-0000-000000000000') {
+		var caseUrl = _server + "/main.aspx?etc=112&extraqs=&pagetype=entityrecord&id=%7b" + caseId + "%7d";
+		$("#outputdiv").append("Case: <a href='" + caseUrl + "' target='_blank'>" + caseNumber + "</a>");	
+	}
+	else {
+		//otherwise display a message that no "next" case could be found
+		$("#outputdiv").append("No next case found");
+	}
+}
+
+//prepare the soap request to call the getnext action
+function buildActionRequest() {
+	var request = "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">";
+	request += "<s:Body>"; 
+
+	request += '<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">' + 
+	'<request ' + 
+	' xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" ' + 
+	' xmlns:i="http://www.w3.org/2001/XMLSchema-instance">' + 
+	'<b:Parameters xmlns:c="http://schemas.datacontract.org/2004/07/System.Collections.Generic">' + 
+	'<b:KeyValuePairOfstringanyType>' + 
+	'<c:key>User</c:key>' + 
+	'<c:value i:type="b:EntityReference">' +
+		'<b:Id>' + _getContext().getUserId() + '</b:Id>' +
+		'<b:LogicalName>' + 'systemuser' + '</b:LogicalName>' +
+		'<b:Name i:nil="true" />' +
+	'</c:value>' + 
+	'</b:KeyValuePairOfstringanyType>' + 
+
+	'<b:KeyValuePairOfstringanyType>' + 
+	'<c:key>Queue</c:key>' + 
+	'<c:value i:type="b:EntityReference">' +
+		'<b:Id>' + '{' + _queueid + '}' + '</b:Id>' +
+		'<b:LogicalName>' + 'queue' + '</b:LogicalName>' +
+		'<b:Name i:nil="true" />' +
+	'</c:value>' + 
+	'</b:KeyValuePairOfstringanyType>' + 
+
+	'<b:KeyValuePairOfstringanyType>' + 
+	'<c:key>Assign</c:key>' + 
+	'<c:value i:type="d:boolean" xmlns:d="http://www.w3.org/2001/XMLSchema">' + _assign + '</c:value>' + 
+	'</b:KeyValuePairOfstringanyType>' + 
+
+	'<b:KeyValuePairOfstringanyType>' + 
+	'<c:key>RemoveFromQueue</c:key>' + 
+	'<c:value i:type="d:boolean" xmlns:d="http://www.w3.org/2001/XMLSchema">' + _removeFromQueue + '</c:value>' + 
+	'</b:KeyValuePairOfstringanyType>' + 
+
+	'</b:Parameters>' + 
+	'<b:RequestId i:nil="true"/>' + 
+	'<b:RequestName>lpa_GetNextCase</b:RequestName>' + 
+	'</request>' + 
+	'</Execute>'; 
+
+	request += '</s:Body></s:Envelope>'; 
+	return request;
+}
+</script>
+</body>
+</html>
