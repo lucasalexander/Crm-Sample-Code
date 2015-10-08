@@ -34,7 +34,7 @@ Here are the relevant blog posts:
 - [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 5](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179289)
 
 ###CrmQueueGetNext
-This solution supports approaches for implementing get next case functionality in the Dynamics CRM and Unified Service Desk. It is discussed in these two blog posts: 
+This solution supports get next case functionality in the Dynamics CRM and Unified Service Desk. It is discussed in these two blog posts: 
 
 - ["Get next case functionality for Dynamics CRM"](http://alexanderdevelopment.net/post/2015/10/02/get-next-case-functionality-for-dynamics-crm/)
 - ["Get next case functionality for CRM Unified Service Desk"](http://alexanderdevelopment.net/post/2015/10/08/get-next-case-functionality-for-crm-unified-service-desk/) 
