@@ -34,13 +34,16 @@ Here are the relevant blog posts:
 - [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 5](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179289)
 
 ###CrmQueueGetNext
-This solution offers an approach for implementing get next case functionality in Dynamics CRM. It is described in my ["Get next case functionality for Dynamics CRM"](http://alexanderdevelopment.net/post/2015/10/02/get-next-case-functionality-for-dynamics-crm/) blog post.
+This solution supports approaches for implementing get next case functionality in the Dynamics CRM and Unified Service Desk. It is discussed in these two blog posts: 
+
+- ["Get next case functionality for Dynamics CRM"](http://alexanderdevelopment.net/post/2015/10/02/get-next-case-functionality-for-dynamics-crm/)
+- ["Get next case functionality for CRM Unified Service Desk"](http://alexanderdevelopment.net/post/2015/10/08/get-next-case-functionality-for-crm-unified-service-desk/) 
 
 ###CrmRegexTools
 This solution shows how to validate and extract text inside Dynamics CRM custom workflow activities using regular expressions. This approach was originally discussed in these two blog posts:
 
 - ["Using regular expressions in Dynamics CRM 2011 processes"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-regular-expressions-in-Dynamics-CRM-2011-processes/ba-p/145437)
-- ["Extracting data with regular expressions in Microsoft Dynamics CRM 2011 processes"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Extracting-data-with-regular-expressions-in-Microsoft-Dynamics/ba-p/145701).
+- ["Extracting data with regular expressions in Microsoft Dynamics CRM 2011 processes"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Extracting-data-with-regular-expressions-in-Microsoft-Dynamics/ba-p/145701)
 
 ###CrmScheduledWorkflows
 This solution shows an method for scheduling recurring workflows in Dynamics CRM. The approach was originally described in my ["Scheduling recurring Dynamics CRM workflows with FetchXML"](http://www.alexanderdevelopment.net/post/2013/05/19/Scheduling-recurring-Dynamics-CRM-workflows-with-FetchXML) blog post.
