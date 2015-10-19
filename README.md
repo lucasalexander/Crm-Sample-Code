@@ -12,8 +12,8 @@ This solution shows an approach to working with JSON-formatted messages in Dynam
 ###CrmKeyValueManager
 This solution shows an approach to working with key-value pair (KVP) data in Dynamics CRM custom workflow activities. This approach was originally discussed in these two blog posts:
 
-- ["Working with key-value pair data inside Microsoft Dynamics CRM workflows"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Working-with-key-value-pair-data-inside-Microsoft-Dynamics-CRM/ba-p/152911)
-- ["Working with key-value pair data inside Microsoft Dynamics CRM workflows – part 2"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Working-with-key-value-pair-data-inside-Microsoft-Dynamics-CRM/ba-p/153037).
+- ["Working with key-value pair data inside Microsoft Dynamics CRM workflows"](http://alexanderdevelopment.net/post/2014/01/14/working-with-key-value-pair-data-inside-microsoft-dynamics-crm-workflows/)
+- ["Working with key-value pair data inside Microsoft Dynamics CRM workflows – part 2"](http://alexanderdevelopment.net/post/2014/01/16/working-with-key-value-pair-data-inside-microsoft-dynamics-crm-workflows-part-2/).
 
 ###CrmMessageQueuing
 This is a collection of code for using [RabbitMQ](http://www.rabbitmq.com/) as a message broker with Dynamics CRM data interfaces.
@@ -27,11 +27,11 @@ This is a collection of code for using [RabbitMQ](http://www.rabbitmq.com/) as a
 
 Here are the relevant blog posts:
 
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 1](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179107)
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 2](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179180)
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 3](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179282)
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 4](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179284)
-- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 5](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-RabbitMQ-as-a-message-broker-in-Dynamics-CRM-data/ba-p/179289)
+- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 1](http://alexanderdevelopment.net/post/2015/01/12/using-rabbitmq-as-a-message-broker-in-dynamics-crm-data-interfaces-part-1/)
+- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 2](http://alexanderdevelopment.net/post/2015/01/14/using-rabbitmq-as-a-message-broker-in-dynamics-crm-data-interfaces-part-2/)
+- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 3](http://alexanderdevelopment.net/post/2015/01/20/using-rabbitmq-as-a-message-broker-in-dynamics-crm-data-interfaces-part-3/)
+- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 4](http://alexanderdevelopment.net/post/2015/01/22/using-rabbitmq-as-a-message-broker-in-dynamics-crm-data-interfaces-part-4/)
+- [Using RabbitMQ as a message broker in Dynamics CRM data interfaces - part 5](http://alexanderdevelopment.net/post/2015/01/27/using-rabbitmq-as-a-message-broker-in-dynamics-crm-data-interfaces-part-5/)
 
 ###CrmQueueGetNext
 This solution implements get next case functionality in Dynamics CRM and Unified Service Desk. It is discussed in these two blog posts: 
@@ -42,8 +42,8 @@ This solution implements get next case functionality in Dynamics CRM and Unified
 ###CrmRegexTools
 This solution shows how to validate and extract text inside Dynamics CRM custom workflow activities using regular expressions. This approach was originally discussed in these two blog posts:
 
-- ["Using regular expressions in Dynamics CRM 2011 processes"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Using-regular-expressions-in-Dynamics-CRM-2011-processes/ba-p/145437)
-- ["Extracting data with regular expressions in Microsoft Dynamics CRM 2011 processes"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Extracting-data-with-regular-expressions-in-Microsoft-Dynamics/ba-p/145701)
+- ["Using regular expressions in Dynamics CRM 2011 processes"](http://alexanderdevelopment.net/post/2013/09/03/using-regular-expressions-in-dynamics-crm-2011-processes-2/)
+- ["Extracting data with regular expressions in Microsoft Dynamics CRM 2011 processes"](http://alexanderdevelopment.net/post/2013/09/09/extracting-data-with-regular-expressions-in-microsoft-dynamics-crm-2011-processes-2/)
 
 ###CrmScheduledWorkflows
 This solution shows an method for scheduling recurring workflows in Dynamics CRM. The approach was originally described in my ["Scheduling recurring Dynamics CRM workflows with FetchXML"](http://www.alexanderdevelopment.net/post/2013/05/19/Scheduling-recurring-Dynamics-CRM-workflows-with-FetchXML) blog post.
@@ -53,25 +53,25 @@ This is a proof-of-concept solution for implementing a near real-time streaming 
 
 I also wrote a four-part blog series about this topic.
 
-- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 1"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Creating-a-near-real-time-streaming-interface-for-Dynamics-CRM/ba-p/178149)
-- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 2"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Creating-a-near-real-time-streaming-interface-for-Dynamics-CRM/ba-p/178153)
-- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 3"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Creating-a-near-real-time-streaming-interface-for-Dynamics-CRM/ba-p/178160)
-- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 4"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Creating-a-near-real-time-streaming-interface-for-Dynamics-CRM/ba-p/178495)
+- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 1"](http://alexanderdevelopment.net/post/2014/12/03/creating-a-near-real-time-streaming-interface-for-dynamics-crm-with-node-js-part-1/)
+- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 2"](http://alexanderdevelopment.net/post/2014/12/05/creating-a-near-real-time-streaming-interface-for-dynamics-crm-with-node-js-part-2/)
+- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 3"](http://alexanderdevelopment.net/post/2014/12/09/creating-a-near-real-time-streaming-interface-for-dynamics-crm-with-node-js-part-3/)
+- ["Creating a near real-time streaming interface for Dynamics CRM with Node.js – part 4"](http://alexanderdevelopment.net/post/2014/12/11/creating-a-near-real-time-streaming-interface-for-dynamics-crm-with-node-js-part-4/)
 
 ###CrmTeamConnection
-This solution shows an approach to managing Dynamics CRM access team membership with connections and custom workflow activities. This approach was originally discussed in my ["Managing Microsoft Dynamics CRM 2013 access team membership using connections"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Managing-Microsoft-Dynamics-CRM-2013-access-team-membership/ba-p/152491) blog post.
+This solution shows an approach to managing Dynamics CRM access team membership with connections and custom workflow activities. This approach was originally discussed in my ["Managing Microsoft Dynamics CRM 2013 access team membership using connections"](http://alexanderdevelopment.net/post/2014/01/09/managing-microsoft-dynamics-crm-2013-access-team-membership-using-connections-2/) blog post.
 
 ###CrmUnitTesting
-This solution contains samples from my ["Unit testing custom Microsoft Dynamics CRM code" series](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-code-Part-1/ba-p/147009) that shows how to test custom CRM code with Moq and Visual Studio's unit testing tools. There are three demo projects and three corresponding Visual Studio unit testing projects:
+This solution contains samples from my ["Unit testing custom Microsoft Dynamics CRM code" series](http://alexanderdevelopment.net/post/2013/10/02/unit-testing-custom-microsoft-dynamics-crm-code-part-1/) series that shows how to test custom CRM code with Moq and Visual Studio's unit testing tools. There are three demo projects and three corresponding Visual Studio unit testing projects:
 
-- DemoCrm shows the testing approach described in parts [2](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-code-Part-2/ba-p/147081), [3](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-code-Part-3/ba-p/147387) and [4](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-code-Part-4/ba-p/147611) of the series for basic SDK usage.
-- DemoCrmPlugin shows the testing approach for plug-ins described in [part 6](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-Code-Part-6/ba-p/148219) of the series.
-- DemoCrmWorkflowActivities shows the testing approach for custom workflow activities described in parts [5](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-Code-Part-5/ba-p/147873), [7](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-Code-Part-7/ba-p/148385) and [8](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Unit-testing-custom-Microsoft-Dynamics-CRM-code-Part-8/ba-p/148395) of the series.
+- DemoCrm shows the testing approach described in parts [2](http://alexanderdevelopment.net/post/2013/10/09/unit-testing-custom-microsoft-dynamics-crm-code-part-2/), [3](http://alexanderdevelopment.net/post/2013/10/10/unit-testing-custom-microsoft-dynamics-crm-code-part-3/) and [4](http://alexanderdevelopment.net/post/2013/10/17/unit-testing-custom-microsoft-dynamics-crm-code-part-4/) of the series for basic SDK usage.
+- DemoCrmPlugin shows the testing approach for plug-ins described in [part 6](http://alexanderdevelopment.net/post/2013/10/21/unit-testing-custom-microsoft-dynamics-crm-code-part-6-plug-ins/) of the series.
+- DemoCrmWorkflowActivities shows the testing approach for custom workflow activities described in parts [5](http://alexanderdevelopment.net/post/2013/10/17/unit-testing-custom-microsoft-dynamics-crm-code-part-5/), [7](http://alexanderdevelopment.net/post/2013/10/24/unit-testing-custom-microsoft-dynamics-crm-code-part-7-web-requests/) and [8](http://alexanderdevelopment.net/post/2013/10/24/unit-testing-custom-microsoft-dynamics-crm-code-part-8-exception-raising/) of the series.
 
 ###NodeClientDemo
 This sample shows how to connect from Node.js to Dynamics CRM using AD FS and OAuth2 for authentication. This [blog post](http://www.alexanderdevelopment.net/post/2015/01/24/authenticating-from-a-node.js-client-to-dynamics-crm-via-ad-fs-and-oauth2) has additional information explaining the structure of the solution and the application flow.
 
 ###misc-code-samples
 This directory contains code samples that don't fit anywhere else.
-- CrmUsernamePasswordValidator.cs and crmidentity.cs are both used to support validation of WCF services with Dynamics CRM user credentials as discussed in my ["Custom WCF service authentication using Microsoft Dynamics CRM credentials"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Custom-WCF-service-authentication-using-Microsoft-Dynamics-CRM/ba-p/143465) and ["Custom identity class to represent Dynamics CRM users in WCF services"](http://h30507.www3.hp.com/t5/Applications-Services-Blog/Custom-identity-class-to-represent-Dynamics-CRM-users-in-WCF/ba-p/144925) blog posts.
+- CrmUsernamePasswordValidator.cs and crmidentity.cs are both used to support validation of WCF services with Dynamics CRM user credentials as discussed in my ["Custom WCF service authentication using Microsoft Dynamics CRM credentials"](http://alexanderdevelopment.net/post/2013/08/01/custom-wcf-service-authentication-using-microsoft-dynamics-crm-credentials-2/) and ["Custom identity class to represent Dynamics CRM users in WCF services"](http://alexanderdevelopment.net/post/2013/08/26/custom-identity-class-to-represent-dynamics-crm-users-in-wcf-services/) blog posts.
 
