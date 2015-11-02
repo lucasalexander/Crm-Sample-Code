@@ -1,0 +1,2131 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/1/2015 1:57:59 PM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="77Z8G12"
+  DTS:CreatorName="TRIBRIDGE\LucasAlexander"
+  DTS:DTSID="{0BB73C30-6015-4835-BF5B-B35CB7BB2116}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="AccessTeamTemplateMover"
+  DTS:PackageType="5"
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{6EB37750-5445-4FAE-8745-BBB10C8B4C15}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[destination]"
+      DTS:CreationName="DynamicsCRM"
+      DTS:DTSID="{61B5B607-F0CB-4E3E-AB48-5835D8FF9CFF}"
+      DTS:ObjectName="destination">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Package::Destination_ConnectionString]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="Password">@[$Package::Destination_Password]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <CrmConnectionManager
+          ConnectionString="AuthenticationType=ActiveDirectory;ServiceEndpoint=Soap2011;DiscoveryServerUrl=http://192.168.65.101;UserName=administrator;Domain=companyx;OrganizationName=LucasTest02;CrmServerUrl=http://192.168.65.101/LucasTest02;ProxyUsername=;ProxyServer=;ProxyServerPort=0;HomeRealmUri=;ServiceTimeout=120;RetryOnIntermittentErrors=True">
+          <Password
+            Sensitive="1" xmlns="www.microsoft.com/SqlServer/Dts"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1jeLMSVhcU+4JGKIGvht4gAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADy2EJ9Y2xH5Ywy+eFu23O1AAAAAASAAACgAAAAEAAAAG8JnB3ouJEuhxXalNqna/IgAAAAbmLdSN/QvxXhgSuN+eeW+ZYoqEkmQoT2alHx8Cpo3qMUAAAAnxK1KUZIjCgVnkXvv+bh8TmNiLI</Password>
+        </CrmConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[source]"
+      DTS:CreationName="DynamicsCRM"
+      DTS:DTSID="{C69DE3D3-17A7-480A-8FC6-321FA5F7DB0F}"
+      DTS:ObjectName="source">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Package::Source_ConnectionString]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="Password">@[$Package::Source_Password]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <CrmConnectionManager
+          ConnectionString="AuthenticationType=ActiveDirectory;ServiceEndpoint=Soap2011;DiscoveryServerUrl=http://192.168.65.101;UserName=administrator;Domain=companyx;OrganizationName=LucasTest01;CrmServerUrl=http://192.168.65.101/LucasTest01;ProxyUsername=;ProxyServer=;ProxyServerPort=0;HomeRealmUri=;ServiceTimeout=120;RetryOnIntermittentErrors=True">
+          <Password
+            Sensitive="1" xmlns="www.microsoft.com/SqlServer/Dts"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1jeLMSVhcU+4JGKIGvht4gAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABzew8kloTPNabuZcCIYLDJAAAAAASAAACgAAAAEAAAAJla/by6gfWg7RBdPYHPDV8gAAAAS/xsy0JyhfLnBPlKh7jcqAWxQ35V+1QSvZJJ4HwNM2wUAAAA+lUEUd4ilWmpQjUbygXK+Fz9RSU</Password>
+        </CrmConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{CD147106-2DAF-4B11-A52A-2270FF8E9854}"
+      DTS:ObjectName="Destination_ConnectionString">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">AuthenticationType=ActiveDirectory;ServiceEndpoint=Soap2011;DiscoveryServerUrl=http://192.168.65.101;UserName=administrator;Domain=companyx;OrganizationName=LucasTest02;CrmServerUrl=http://192.168.65.101/LucasTest02;ProxyUsername=;ProxyServer=;ProxyServerPort=0;HomeRealmUri=;ServiceTimeout=120;RetryOnIntermittentErrors=True</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{DEC2786B-A164-43A7-B780-AFE891CB028F}"
+      DTS:ObjectName="Destination_Password"
+      DTS:Sensitive="True">
+      <DTS:Property
+        DTS:Name="ParameterValue">
+        <DTS:Property
+          DTS:DataType="8"
+          DTS:Name="ParameterValue"
+          Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1jeLMSVhcU+4JGKIGvht4gAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAC1Od3M3QWE2aYws0Or6OYSAAAAAASAAACgAAAAEAAAAIveMARb5u7LumEDQSS46XogAAAAtONdclvY3ClYNpOcd+4MpZJjbw3C109jgSwzJHXHMcwUAAAAZA2Qyvt2Eu0UKc5uxsp9ZW5JWJM</DTS:Property>
+      </DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="11"
+      DTS:DTSID="{D0560409-8D23-4CEA-BAC3-E1FCF63B5611}"
+      DTS:ObjectName="enableTargetAccessTeams">
+      <DTS:Property
+        DTS:DataType="11"
+        DTS:Name="ParameterValue">-1</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{8EEF4EE0-68DE-4B8B-B1BE-5A996598504D}"
+      DTS:ObjectName="Source_ConnectionString">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">AuthenticationType=ActiveDirectory;ServiceEndpoint=Soap2011;DiscoveryServerUrl=http://192.168.65.101;UserName=administrator;Domain=companyx;OrganizationName=LucasTest01;CrmServerUrl=http://192.168.65.101/LucasTest01;ProxyUsername=;ProxyServer=;ProxyServerPort=0;HomeRealmUri=;ServiceTimeout=120;RetryOnIntermittentErrors=True</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{58C1BE01-4CA2-4EF4-B64B-4AF59D6D3B24}"
+      DTS:ObjectName="Source_Password"
+      DTS:Sensitive="True">
+      <DTS:Property
+        DTS:Name="ParameterValue">
+        <DTS:Property
+          DTS:DataType="8"
+          DTS:Name="ParameterValue"
+          Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1jeLMSVhcU+4JGKIGvht4gAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAC5Z574RVp9hxbc/zMcBXl4AAAAAASAAACgAAAAEAAAAM/pqETElZ4GEM+SzzVFJZ4gAAAAx8HkD574cyyu63VEpMSh8VhfduMNb8cR0gj35uvj2cIUAAAAoB61cXpu4lLwKe35ON3MEmFtICw</DTS:Property>
+      </DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8E2AB0D1-C3BF-4257-9340-FCE43A5B8C34}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Package::enableTargetAccessTeams]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="enableTargetAccessTeams">
+      <DTS:VariableValue
+        DTS:DataType="11">-1</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="{5918251B-2970-45A4-AB5F-01C3C588FE5A}"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{89B72D60-DB93-4221-9198-FA59A2B1FAAD}"
+      DTS:ExecutableType="{5918251B-2970-45A4-AB5F-01C3C588FE5A}"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\check if target entities are enabled for access teams"
+              componentClassID="{874F7595-FB5F-40FF-96AF-FBFF8250E3EF}"
+              contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;8"
+              description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+              name="check if target entities are enabled for access teams"
+              version="8">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Stores the source code of the component"
+                  isArray="true"
+                  name="SourceCode"
+                  state="cdata">
+                  <arrayElements
+                    arrayElementCount="30">
+                    <arrayElement
+                      dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public override void ProcessInput(int InputID, string InputName, PipelineBuffer Buffer, OutputNameMap OutputMap)
+    {
+
+        if (InputName.Equals(@"input", StringComparison.Ordinal))
+        {
+            input_ProcessInput(new inputBuffer(Buffer, GetColumnIndexes(InputID), OutputMap));
+        }
+
+    }
+
+    public virtual void input_ProcessInput(inputBuffer Buffer)
+    {
+        while (Buffer.NextRow())
+        {
+            input_ProcessInputRow(Buffer);
+        }
+    }
+
+    public virtual void input_ProcessInputRow(inputBuffer Row)
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public IDTSConnectionManager100 sourceConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"sourceConnection").ConnectionManager;
+        }
+    }
+
+    public IDTSConnectionManager100 destinationConnection
+    {
+        get
+        {
+            return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName(@"destinationConnection").ConnectionManager;
+        }
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public Boolean enableTargetAccessTeams
+    {
+        get
+        {
+            return (Boolean)(ParentComponent.ReadOnlyVariables["enableTargetAccessTeams"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[#region Help:  Introduction to the Script Component
+/* The Script Component allows you to perform virtually any operation that can be accomplished in
+ * a .Net application within the context of an Integration Services data flow.
+ *
+ * Expand the other regions which have "Help" prefixes for examples of specific ways to use
+ * Integration Services features within this script component. */
+#endregion
+
+#region Namespaces
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+using KingswaySoft.DynamicsCrmServices.Soap2011.OrganizationService;
+using KingswaySoft.DynamicsCrmServices.Soap2011.OrganizationService.Messages;
+using KingswaySoft.DynamicsCrmServices.Soap2011.OrganizationService.Metadata;
+using KingswaySoft.DynamicsCrmServices.Soap2011.OrganizationService.Query;
+using KingswaySoft.IntegrationToolkit.DynamicsCrm;
+using System.Collections.Generic;
+#endregion
+
+/// <summary>
+/// This is the class to which to add your code.  Do not change the name, attributes, or parent
+/// of this class.
+/// </summary>
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    private IOrganizationService _service; //source org service
+    private IOrganizationService _targetService; //destination org service
+    private List<string> _enabledEntities;
+    private EntityMetadata[] _sourceEmd;
+
+    #region Help:  Using Integration Services variables and parameters
+    /* To use a variable in this script, first ensure that the variable has been added to
+     * either the list contained in the ReadOnlyVariables property or the list contained in
+     * the ReadWriteVariables property of this script component, according to whether or not your
+     * code needs to write into the variable.  To do so, save this script, close this instance of
+     * Visual Studio, and update the ReadOnlyVariables and ReadWriteVariables properties in the
+     * Script Transformation Editor window.
+     * To use a parameter in this script, follow the same steps. Parameters are always read-only.
+     *
+     * Example of reading from a variable or parameter:
+     *  DateTime startTime = Variables.MyStartTime;
+     *
+     * Example of writing to a variable:
+     *  Variables.myStringVariable = "new value";
+     */
+    #endregion
+
+    #region Help:  Using Integration Services Connnection Managers
+    /* Some types of connection managers can be used in this script component.  See the help topic
+     * "Working with Connection Managers Programatically" for details.
+     *
+     * To use a connection manager in this script, first ensure that the connection manager has
+     * been added to either the list of connection managers on the Connection Managers page of the
+     * script component editor.  To add the connection manager, save this script, close this instance of
+     * Visual Studio, and add the Connection Manager to the list.
+     *
+     * If the component needs to hold a connection open while processing rows, override the
+     * AcquireConnections and ReleaseConnections methods.
+     * 
+     * Example of using an ADO.Net connection manager to acquire a SqlConnection:
+     *  object rawConnection = Connections.SalesDB.AcquireConnection(transaction);
+     *  SqlConnection salesDBConn = (SqlConnection)rawConnection;
+     *
+     * Example of using a File connection manager to acquire a file path:
+     *  object rawConnection = Connections.Prices_zip.AcquireConnection(transaction);
+     *  string filePath = (string)rawConnection;
+     *
+     * Example of releasing a connection manager:
+     *  Connections.SalesDB.ReleaseConnection(rawConnection);
+     */
+    #endregion
+
+    #region Help:  Firing Integration Services Events
+    /* This script component can fire events.
+     *
+     * Example of firing an error event:
+     *  ComponentMetaData.FireError(10, "Process Values", "Bad value", "", 0, out cancel);
+     *
+     * Example of firing an information event:
+     *  ComponentMetaData.FireInformation(10, "Process Values", "Processing has started", "", 0, fireAgain);
+     *
+     * Example of firing a warning event:
+     *  ComponentMetaData.FireWarning(10, "Process Values", "No rows were received", "", 0);
+     */
+    #endregion
+
+    /// <summary>
+    /// This method is called once, before rows begin to be processed in the data flow.
+    ///
+    /// You can remove this method if you don't need to do anything here.
+    /// </summary>
+    public override void PreExecute()
+    {
+        base.PreExecute();
+
+        Console.WriteLine("setting up source connection");
+        var sourceConnMgr = this.Connections.sourceConnection;
+        var sourceConn = (CrmConnection)sourceConnMgr.AcquireConnection(null);
+        _service = (IOrganizationService)sourceConn.GetCrmService();
+
+        Console.WriteLine("setting up target connection");
+        var destConnMgr = this.Connections.destinationConnection;
+        var destConn = (CrmConnection)destConnMgr.AcquireConnection(null);
+        _targetService = (IOrganizationService)destConn.GetCrmService();
+
+        //retrieve all entity metadata from target org so we can check whether access teams are enabled
+        Console.WriteLine("setting up retrieveallentitiesrequest");
+        RetrieveAllEntitiesRequest request = new RetrieveAllEntitiesRequest()
+        {
+            EntityFilters = EntityFilters.Entity,
+            RetrieveAsIfPublished = false
+        };
+        RetrieveAllEntitiesResponse response = (RetrieveAllEntitiesResponse)_targetService.Execute(request);
+        _sourceEmd = response.EntityMetadata;
+
+        _enabledEntities = new List<string>();
+        //loop through target entitymetadata results
+        foreach (EntityMetadata emd in response.EntityMetadata)
+        {
+            //AutoCreateAccessTeams is nullable, so need to set separate enabled flag
+            if (emd.AutoCreateAccessTeams.HasValue)
+            {
+                if ((bool)emd.AutoCreateAccessTeams)
+                {
+                    //add it to the list of entities that are enabled for access teams
+                    _enabledEntities.Add(emd.LogicalName);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// This method is called after all the rows have passed through this component.
+    ///
+    /// You can delete this method if you don't need to do anything here.
+    /// </summary>
+    public override void PostExecute()
+    {
+        base.PostExecute();
+        /*
+         * Add your code here
+         */
+    }
+
+    /// <summary>
+    /// This method is called once for every row that passes through the component from input.
+    ///
+    /// Example of reading a value from a column in the the row:
+    ///  string zipCode = Row.ZipCode
+    ///
+    /// Example of writing a value to a column in the row:
+    ///  Row.ZipCode = zipCode
+    /// </summary>
+    /// <param name="Row">The row that is currently passing through the component</param>
+    public override void input_ProcessInputRow(inputBuffer Row)
+    {
+        //check if objecttypecode is in the list of enabled entities
+        string logicalname = Row.objecttypecode;
+
+        if (_enabledEntities.Contains(logicalname))
+        {
+            //if so, set the enabled value for this row to true
+            Row.enabled = true;
+        }
+        else
+        {
+            //otherwise check if package is set to enable access teams for target entities
+
+            //if so
+            if (Variables.enableTargetAccessTeams)
+            {
+                EntityMetadata emd = Array.Find<EntityMetadata>(_sourceEmd, t => t.LogicalName == logicalname);
+                emd.AutoCreateAccessTeams = true;
+                UpdateEntityRequest updateReq = new UpdateEntityRequest
+                {
+                    Entity = emd,
+                };
+
+                //update the entity metadata
+                _targetService.Execute(updateReq);
+
+                //add the entity to the list of enabled entities so we don't execute an update again
+                _enabledEntities.Add(logicalname);
+
+                //set enabled value for this row to true
+                Row.enabled = true;
+            }
+            else
+            {
+                //otherwise set enabled value for this row to false
+                Row.enabled = false;
+            }
+        }
+    }
+
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class inputBuffer: ScriptBuffer
+
+{
+    public inputBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String objecttypecode
+    {
+        get
+        {
+            return Buffer.GetString(BufferColumnIndexes[0]);
+        }
+    }
+    public bool objecttypecode_IsNull
+    {
+        get
+        {
+            return IsNull(0);
+        }
+    }
+
+    public Boolean enabled
+    {
+        set
+        {
+            this[1] = value;
+        }
+    }
+    public bool enabled_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(1);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public bool NextRow()
+    {
+        return base.NextRow();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_181bef3c4ee548bc844910da6aef292a.Properties.Settings.get_Default():SC_181bef3c4ee548bc844910da6aef292a.Properties.Sett" +
+    "ings")]
+
+namespace SC_181bef3c4ee548bc844910da6aef292a.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Project]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>SC_181bef3c4ee548bc844910da6aef292a</msb:CodeName>
+		<msb:DisplayName>SC_181bef3c4ee548bc844910da6aef292a</msb:DisplayName>
+		<msb:ProjectId>{C50E14B4-DCDF-416D-A8FA-FB7AD4278605}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_181bef3c4ee548bc844910da6aef292a.csproj"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="BufferWrapper.cs"/>
+		<msb:File Include="main.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="ComponentWrapper.cs"/>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_181bef3c4ee548bc844910da6aef292a")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Tribridge")]
+[assembly: AssemblyProduct("SC_181bef3c4ee548bc844910da6aef292a")]
+[assembly: AssemblyCopyright("Copyright @ Tribridge 2015")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[SC_181bef3c4ee548bc844910da6aef292a.csproj]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{940EDD7F-3A4E-4CA4-9678-0E49EE838F0A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_181bef3c4ee548bc844910da6aef292a</RootNamespace>
+    <AssemblyName>SC_181bef3c4ee548bc844910da6aef292a</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="KingswaySoft.DynamicsCrmServices, Version=1.0.0.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\KingswaySoft.DynamicsCrmServices\1.0.0.0__705df8e0751bcea7\KingswaySoft.DynamicsCrmServices.dll</HintPath>
+    </Reference>
+    <Reference Include="KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\KingswaySoft.IntegrationToolkit.DynamicsCrm\v4.0_1.0.2012.0__705df8e0751bcea7\KingswaySoft.IntegrationToolkit.DynamicsCrm.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC110</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_181bef3c4ee548bc844910da6aef292a.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_181bef3c4ee548bc844910da6aef292a.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_181bef3c4ee548bc844910da6aef292a.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_181bef3c4ee548bc844910da6aef292a.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_181bef3c4ee548bc844910da6aef292a.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                  </arrayElements>
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Stores the binary representation of the component"
+                  isArray="true"
+                  name="BinaryCode"
+                  state="cdata">
+                  <arrayElements
+                    arrayElementCount="2">
+                    <arrayElement
+                      dataType="System.String"><![CDATA[SC_181bef3c4ee548bc844910da6aef292a.dll]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAMbDNlYAAAAAAAAAAOAAAiELAQsAACAAAAAIAAAAAAAAjj8A
+AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAMAQIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAADw/AABPAAAAAEAAAFAEAAAAAAAAAAAAAAAAAAAA
+AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAlB8AAAAgAAAAIAAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAFAEAAAAQAAAAAYAAAAiAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAKAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAABw
+PwAAAAAAAEgAAAACAAUAuCQAAIQaAAABAAAAAAAAAAAkAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH4CKA0AAAoCAnMQAAAGfQEAAAQCAnMTAAAGfQIAAAQqkgRy
+AQAAcBpvDgAACiwVAgUCAygPAAAKDgRzCQAABm8DAAAGKkorBwIDbwQAAAYDbw4AAAYt8SoGKgAA
+EzACABkBAAABAAARAigRAAAKcg0AAHAoEgAACgJ7AQAABG8RAAAGCgYUbxMAAAp0HQAAAQsCB28U
+AAAKdAcAAAF9AwAABHJHAABwKBIAAAoCewEAAARvEgAABgwIFG8TAAAKdB0AAAENAglvFAAACnQH
+AAABfQQAAARygQAAcCgSAAAKcxUAAAoTBxEHF28WAAAKEQcWbxcAAAoRBxMEAnsEAAAEEQRvGAAA
+CnQiAAABEwUCEQVvGQAACn0GAAAEAnMaAAAKfQUAAAQRBW8ZAAAKEwgWEwkrQxEIEQmaEwYRBm8b
+AAAKEwoSCigcAAAKLCQRBm8bAAAKEwsSCygdAAAKLBICewUAAAQRBm8eAAAKbx8AAAoRCRdYEwkR
+CREIjmkytSoeAiggAAAKKh4CKCEAAAoqSgNvHgAACgJ7DAAABCgiAAAKKhMwAwCnAAAAAgAAERQN
+cxwAAAYTBBEEA28KAAAGfQwAAAQCewUAAAQRBHsMAAAEbyMAAAosCAMXbwwAAAYqAnsCAAAEbxQA
+AAYsYAJ7BgAABAktDhEE/gYdAAAGcyQAAAoNCSgBAAArCgYXcyYAAApvJwAACnMoAAAKDAgGbykA
+AAoICwJ7BAAABAdvGAAACiYCewUAAAQRBHsMAAAEbx8AAAoDF28MAAAGKgMWbwwAAAYqHgIoAQAA
+BioqAgMEBSgrAAAKKlICeywAAAoCey0AAAoWlG8uAAAKKiICFigvAAAKKjoCFwOMKQAAASgwAAAK
+KloDLAgCFygxAAAKKnLNAABwczIAAAp6HgIoMwAACioeAig0AAAKKjoCKCEAAAoCA30HAAAEKoIC
+ewcAAARvNQAACm82AAAKcmoBAHBvNwAACm84AAAKKoICewcAAARvNQAACm82AAAKcowBAHBvNwAA
+Cm84AAAKKjoCKCEAAAoCA30IAAAEKpYCewgAAARvOQAACnK4AQBwbzoAAAooOwAACm88AAAKpSkA
+AAEqHgIoIQAACioTMAIALQAAAAMAABF+CQAABC0gcugBAHDQBwAAAig+AAAKbz8AAApzQAAACgoG
+gAkAAAR+CQAABCoafgoAAAQqHgKACgAABCoafgsAAAQqLnMaAAAGgAsAAAQqHgIoQgAACioAtAAA
+AM7K774BAAAAkQAAAGxTeXN0ZW0uUmVzb3VyY2VzLlJlc291cmNlUmVhZGVyLCBtc2NvcmxpYiwg
+VmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2
+MTkzNGUwODkjU3lzdGVtLlJlc291cmNlcy5SdW50aW1lUmVzb3VyY2VTZXQCAAAAAAAAAAAAAABQ
+QURQQURQtAAAAEJTSkIBAAEAAAAAAAwAAAB2NC4wLjMwMzE5AAAAAAUAbAAAANwHAAAjfgAASAgA
+AAANAAAjU3RyaW5ncwAAAABIFQAAXAIAACNVUwCkFwAAEAAAACNHVUlEAAAAtBcAANACAAAjQmxv
+YgAAAAAAAAACAAABVxWiCQkLAAAA+iUzABYAAAEAAAA3AAAACQAAAAwAAAAdAAAAEAAAAEIAAAAQ
+AAAAAwAAAAUAAAAKAAAACwAAAAMAAAABAAAACQAAAAEAAAABAAAAAQAAAAAACgABAAAAAAAGAO0A
+zAAGAP0AzAAKABoBEwEOADYBIQESAHUBzAAGAIQBzAAWACcC6QEKAG8CVAIWAM4ChwIaAPYDzgMK
+AKoEmQQKANsExgQKALQFmgUKAN8FzQUKAPYFzQUKABMGzQUKADIGzQUKAEsGzQUKAGQGzQUKAH8G
+zQUKAJoGzQUKALMGzQUKAOwGzAYKAAwHzAYKAE4HEwEKAFUHEwEGAH4HzAAKAKUHEwEeAPUHyQcW
+AFgIEQgWAHMIhwIWAK0I6QEWAMII6QEWAN4IEQgiAA0JEwEKAA0JEwEKAK8JEwEKALsJEwEWAOAJ
+EQgKAP8JzAYKACsKEwEKAEQKEwEmAKsKggomANoKggomAB0LggoaAGcLzgMaAI4LzgMHAKcLAAAa
+ANcLzgMKABYMAwwKADMMEwEKADgMEwEKAFwMzQUOAIgMcgwOAKEMcgwAAAAAAQAAAAAAAQABAAEA
+EAAyAAAABQABAAEAAQAQAEAAAAAIAAMABQABABAASwAAAAkABwAJAAEAEABXAAAADQAHABAAAQAQ
+AGMAAAANAAgAEwAAABAAbQB3AA0ACQAVAAABEACmAHcAEQALABkAAwEQAF0JAAANAAwAHAAGAFcA
+EwAGAGMAFwABADwCOAABAEUCOAABAHYCPAABAN0CQwABAJsDZwABAJsDZwARALoEewARAOcEfwAR
+ACsFnQAGAHAJLwFQIAAAAACGGE4BGwABAHAgAAAAAMYAkgEfAAEAlSAAAAAAxgGfASkABQCoIAAA
+AADGAbIBKQAGAKwgAAAAAMYA6AIbAAcA0SEAAAAAxgDzAhsABwD0IQAAAADGALIBKQAHAKciAAAA
+AIYYTgEbAAgAryIAAAAAhhhOAUgACAC6IgAAAACGCP8CUgALAM8iAAAAAIYIEgNWAAsA2CIAAAAA
+hggsA1oACwDnIgAAAACGCDgDWgAMAP4iAAAAAIYASwNWAA0ABiMAAAAAhgBTA1YADQAOIwAAAACG
+GE4BawANAB0jAAAAAIYIDwRxAA4APiMAAAAAhggkBHEADgBfIwAAAACGGE4BawAOAG4jAAAAAIYI
+ZQRWAA8AlCMAAAAAgxhOARsADwCcIwAAAACTCPcEgwAPANUjAAAAAJMICwWIAA8A3CMAAAAAkwgX
+BY0ADwDkIwAAAACWCDsFoQAQAPcjAAAAAIYYTgEbABAA6yMAAAAAkRi2DPwBEADZIQAAAACGGE4B
+GwAQAOEhAAAAAIYAfAkyARAAAAABAE8FAAACAFcFAAADAGEFAAAEAGgFAAABAGEFAAABAHIFAAAB
+AHIFAAABAGEFAAACAHYFAAADAGgFAAABAIoFAAABAIoFAAABAJAFAAABAJAFAAABAIoFAAABAJgJ
+aQBOAasAcQBOAasAeQBOAasAgQBOAasAiQBOAasAkQBOAasAmQBOAasAoQBOAasAqQBOAasAsQBO
+AasAuQBOAbAAwQBOARsACQBOARsAyQBmB7UACQBtB7wA2QBOARsACQDoAhsA4QCtB8cAUQC3B8wA
+6QADCNEA8QBOARsA8QCBCNUA8QCTCFoAOQDWCNsAEQH6COQADABOARsASQAYCfAAFAAyCVYAFAA/
+CQABSQBJCVIADABZCQUBCQDzAhsAGQBOARsAyQCaCTgBDACmCT4BHABOAUwBMQHBCVIBFABOAQUB
+SQDGCWcBOQFOARsAOQH0CXEBQQFOARsAEQBOAUgAEQBhBYsBEQB2BY8BKQAaCpMBEQAkCpgBEQAz
+Cp0BEQA8CrAAUQFOAasAEQBLA1YAEQBTA1YACQDECqMBWQH9CqkBYQE2C68BaQFRC3EACQB4C7YB
+cQGeC7wBCQDCC8MBeQHvC8kBkQFOARsAmQFKDNABmQFlDNkBWQBOAd8BsQFOAewBIQBOARsALgAT
+AEgCLgAbAHECLgBjAK8CLgAjAHECLgALAAACLgArAHcCLgAzAEgCLgBDAHECLgBbAKYCLgA7AIYC
+YwCDAMIA4wDrAcIACQELAvMBIwFTAcIAKQELAvMBYQFTAcIACwF3AecBBAABAAUABQAGAAcABwAI
+AAgACgAAAF8DXwAAAG4DYwAAAIQDYwAAAIwDYwAAAD4EdgAAAE8EdgAAAIEEYwAAAKoEkwAAACMF
+mAAAAEcFpgACAAoAAwACAAsABQABAAwABwABAA0ACQACABEACwACABIADQACABQADwACABYAEQAC
+ABcAEwABABgAEwACABkAFQDqAPkARAEEgAAAAQAAAJcWs4wAAAAAAAAqBwAACwAAAAAAAAAAAAAA
+AQCvAAAAAAAEAAAAAAAAAAAAAAAKAAoBAAAAAAQAAAAAAAAAAAAAAAoAEwEAAAAACwAAAAAAAAAA
+AAAAAQBUAQAAAAABAAAAAAAAAAAAAAAvAMgBAAAAAAsAAAAAAAAAAAAAAAEAqwMAAAAAAQAAANwH
+AAAAAAAALwDJBwAAAAACAAAAAAAAAAAAAAAKAAoBAAAAAAsAAAAAAAAAAAAAAAEAXgoAAAAAAAAA
+AAEAAAC9DAAACQADAEsAYgEAAAAAADxNb2R1bGU+AFNDXzE4MWJlZjNjNGVlNTQ4YmM4NDQ5MTBk
+YTZhZWYyOTJhLmRsbABVc2VyQ29tcG9uZW50AFNjcmlwdE1haW4AaW5wdXRCdWZmZXIAQ29ubmVj
+dGlvbnMAVmFyaWFibGVzAFJlc291cmNlcwBTQ18xODFiZWYzYzRlZTU0OGJjODQ0OTEwZGE2YWVm
+MjkyYS5Qcm9wZXJ0aWVzAFNldHRpbmdzAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuVHhTY3JpcHQATWlj
+cm9zb2Z0LlNxbFNlcnZlci5EdHMuUGlwZWxpbmUAU2NyaXB0Q29tcG9uZW50AFNjcmlwdEJ1ZmZl
+cgBtc2NvcmxpYgBTeXN0ZW0AT2JqZWN0AFN5c3RlbS5Db25maWd1cmF0aW9uAEFwcGxpY2F0aW9u
+U2V0dGluZ3NCYXNlAC5jdG9yAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuUGlwZWxpbmVIb3N0AFBpcGVs
+aW5lQnVmZmVyAE91dHB1dE5hbWVNYXAAUHJvY2Vzc0lucHV0AGlucHV0X1Byb2Nlc3NJbnB1dABp
+bnB1dF9Qcm9jZXNzSW5wdXRSb3cAS2luZ3N3YXlTb2Z0LkR5bmFtaWNzQ3JtU2VydmljZXMAS2lu
+Z3N3YXlTb2Z0LkR5bmFtaWNzQ3JtU2VydmljZXMuU29hcDIwMTEuT3JnYW5pemF0aW9uU2Vydmlj
+ZQBJT3JnYW5pemF0aW9uU2VydmljZQBfc2VydmljZQBfdGFyZ2V0U2VydmljZQBTeXN0ZW0uQ29s
+bGVjdGlvbnMuR2VuZXJpYwBMaXN0YDEAX2VuYWJsZWRFbnRpdGllcwBLaW5nc3dheVNvZnQuRHlu
+YW1pY3NDcm1TZXJ2aWNlcy5Tb2FwMjAxMS5Pcmdhbml6YXRpb25TZXJ2aWNlLk1ldGFkYXRhAEVu
+dGl0eU1ldGFkYXRhAF9zb3VyY2VFbWQAUHJlRXhlY3V0ZQBQb3N0RXhlY3V0ZQBnZXRfb2JqZWN0
+dHlwZWNvZGUAZ2V0X29iamVjdHR5cGVjb2RlX0lzTnVsbABzZXRfZW5hYmxlZABzZXRfZW5hYmxl
+ZF9Jc051bGwATmV4dFJvdwBFbmRPZlJvd3NldABvYmplY3R0eXBlY29kZQBvYmplY3R0eXBlY29k
+ZV9Jc051bGwAZW5hYmxlZABlbmFibGVkX0lzTnVsbABQYXJlbnRDb21wb25lbnQATWljcm9zb2Z0
+LlNxbFNlcnZlci5EVFNSdW50aW1lV3JhcABNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5SdW50aW1l
+LldyYXBwZXIASURUU0Nvbm5lY3Rpb25NYW5hZ2VyMTAwAGdldF9zb3VyY2VDb25uZWN0aW9uAGdl
+dF9kZXN0aW5hdGlvbkNvbm5lY3Rpb24Ac291cmNlQ29ubmVjdGlvbgBkZXN0aW5hdGlvbkNvbm5l
+Y3Rpb24AZ2V0X2VuYWJsZVRhcmdldEFjY2Vzc1RlYW1zAGVuYWJsZVRhcmdldEFjY2Vzc1RlYW1z
+AFN5c3RlbS5SZXNvdXJjZXMAUmVzb3VyY2VNYW5hZ2VyAHJlc291cmNlTWFuAFN5c3RlbS5HbG9i
+YWxpemF0aW9uAEN1bHR1cmVJbmZvAHJlc291cmNlQ3VsdHVyZQBnZXRfUmVzb3VyY2VNYW5hZ2Vy
+AGdldF9DdWx0dXJlAHNldF9DdWx0dXJlAEN1bHR1cmUAZGVmYXVsdEluc3RhbmNlAGdldF9EZWZh
+dWx0AERlZmF1bHQASW5wdXRJRABJbnB1dE5hbWUAQnVmZmVyAE91dHB1dE1hcABSb3cAQnVmZmVy
+Q29sdW1uSW5kZXhlcwB2YWx1ZQBDb21wb25lbnQAU3lzdGVtLlJ1bnRpbWUuVmVyc2lvbmluZwBU
+YXJnZXRGcmFtZXdvcmtBdHRyaWJ1dGUAU3lzdGVtLlJlZmxlY3Rpb24AQXNzZW1ibHlUaXRsZUF0
+dHJpYnV0ZQBBc3NlbWJseURlc2NyaXB0aW9uQXR0cmlidXRlAEFzc2VtYmx5Q29uZmlndXJhdGlv
+bkF0dHJpYnV0ZQBBc3NlbWJseUNvbXBhbnlBdHRyaWJ1dGUAQXNzZW1ibHlQcm9kdWN0QXR0cmli
+dXRlAEFzc2VtYmx5Q29weXJpZ2h0QXR0cmlidXRlAEFzc2VtYmx5VHJhZGVtYXJrQXR0cmlidXRl
+AEFzc2VtYmx5Q3VsdHVyZUF0dHJpYnV0ZQBBc3NlbWJseVZlcnNpb25BdHRyaWJ1dGUAU3lzdGVt
+LlJ1bnRpbWUuQ29tcGlsZXJTZXJ2aWNlcwBDb21waWxhdGlvblJlbGF4YXRpb25zQXR0cmlidXRl
+AFJ1bnRpbWVDb21wYXRpYmlsaXR5QXR0cmlidXRlAFNDXzE4MWJlZjNjNGVlNTQ4YmM4NDQ5MTBk
+YTZhZWYyOTJhAFN0cmluZwBTdHJpbmdDb21wYXJpc29uAEVxdWFscwBHZXRDb2x1bW5JbmRleGVz
+AFNTSVNTY3JpcHRDb21wb25lbnRFbnRyeVBvaW50QXR0cmlidXRlAENvbnNvbGUAV3JpdGVMaW5l
+AEFjcXVpcmVDb25uZWN0aW9uAEtpbmdzd2F5U29mdC5JbnRlZ3JhdGlvblRvb2xraXQuRHluYW1p
+Y3NDcm0AQ3JtQ29ubmVjdGlvbgBHZXRDcm1TZXJ2aWNlAEtpbmdzd2F5U29mdC5EeW5hbWljc0Ny
+bVNlcnZpY2VzLlNvYXAyMDExLk9yZ2FuaXphdGlvblNlcnZpY2UuTWVzc2FnZXMAUmV0cmlldmVB
+bGxFbnRpdGllc1JlcXVlc3QARW50aXR5RmlsdGVycwBzZXRfRW50aXR5RmlsdGVycwBzZXRfUmV0
+cmlldmVBc0lmUHVibGlzaGVkAE9yZ2FuaXphdGlvblJlc3BvbnNlAE9yZ2FuaXphdGlvblJlcXVl
+c3QARXhlY3V0ZQBSZXRyaWV2ZUFsbEVudGl0aWVzUmVzcG9uc2UAZ2V0X0VudGl0eU1ldGFkYXRh
+AE51bGxhYmxlYDEAZ2V0X0F1dG9DcmVhdGVBY2Nlc3NUZWFtcwBnZXRfSGFzVmFsdWUAZ2V0X1Zh
+bHVlAGdldF9Mb2dpY2FsTmFtZQBBZGQAPD5jX19EaXNwbGF5Q2xhc3M0AGxvZ2ljYWxuYW1lADxp
+bnB1dF9Qcm9jZXNzSW5wdXRSb3c+Yl9fMgB0AG9wX0VxdWFsaXR5AENvbnRhaW5zAFByZWRpY2F0
+ZWAxAEFycmF5AEZpbmQAc2V0X0F1dG9DcmVhdGVBY2Nlc3NUZWFtcwBVcGRhdGVFbnRpdHlSZXF1
+ZXN0AHNldF9FbnRpdHkAQ29tcGlsZXJHZW5lcmF0ZWRBdHRyaWJ1dGUAR2V0U3RyaW5nAElzTnVs
+bABCb29sZWFuAHNldF9JdGVtAFNldE51bGwASW52YWxpZE9wZXJhdGlvbkV4Y2VwdGlvbgBNaWNy
+b3NvZnQuU3FsU2VydmVyLkRUU1BpcGVsaW5lV3JhcABNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5Q
+aXBlbGluZS5XcmFwcGVyAElEVFNDb21wb25lbnRNZXRhRGF0YTEwMABnZXRfQ29tcG9uZW50TWV0
+YURhdGEASURUU1J1bnRpbWVDb25uZWN0aW9uQ29sbGVjdGlvbjEwMABnZXRfUnVudGltZUNvbm5l
+Y3Rpb25Db2xsZWN0aW9uAElEVFNSdW50aW1lQ29ubmVjdGlvbjEwMABHZXRSdW50aW1lQ29ubmVj
+dGlvbkJ5TmFtZQBnZXRfQ29ubmVjdGlvbk1hbmFnZXIASURUU1ZhcmlhYmxlczEwMABnZXRfUmVh
+ZE9ubHlWYXJpYWJsZXMASURUU1ZhcmlhYmxlMTAwAGdldF9JdGVtAFNjcmlwdENvbXBvbmVudEV2
+YWxDb250ZXh0AGdldF9FdmFsdWF0b3JDb250ZXh0AElEVFNFdmFsdWF0b3JDb250ZXh0MTAwAEdl
+dFZhbHVlV2l0aENvbnRleHQAU3lzdGVtLkRpYWdub3N0aWNzAERlYnVnZ2VyTm9uVXNlckNvZGVB
+dHRyaWJ1dGUAVHlwZQBSdW50aW1lVHlwZUhhbmRsZQBHZXRUeXBlRnJvbUhhbmRsZQBBc3NlbWJs
+eQBnZXRfQXNzZW1ibHkAU3lzdGVtLkNvbXBvbmVudE1vZGVsAEVkaXRvckJyb3dzYWJsZUF0dHJp
+YnV0ZQBFZGl0b3JCcm93c2FibGVTdGF0ZQAuY2N0b3IAU0NfMTgxYmVmM2M0ZWU1NDhiYzg0NDkx
+MGRhNmFlZjI5MmEuUHJvcGVydGllcy5SZXNvdXJjZXMucmVzb3VyY2VzAAALaQBuAHAAdQB0AAA5
+cwBlAHQAdABpAG4AZwAgAHUAcAAgAHMAbwB1AHIAYwBlACAAYwBvAG4AbgBlAGMAdABpAG8AbgAA
+OXMAZQB0AHQAaQBuAGcAIAB1AHAAIAB0AGEAcgBnAGUAdAAgAGMAbwBuAG4AZQBjAHQAaQBvAG4A
+AEtzAGUAdAB0AGkAbgBnACAAdQBwACAAcgBlAHQAcgBpAGUAdgBlAGEAbABsAGUAbgB0AGkAdABp
+AGUAcwByAGUAcQB1AGUAcwB0AACAm0kAcwBOAHUAbABsACAAcAByAG8AcABlAHIAdAB5ACAAYwBh
+AG4AbgBvAHQAIABiAGUAIABzAGUAdAAgAHQAbwAgAEYAYQBsAHMAZQAuACAAQQBzAHMAaQBnAG4A
+IABhACAAdgBhAGwAdQBlACAAdABvACAAdABoAGUAIABjAG8AbAB1AG0AbgAgAGkAbgBzAHQAZQBh
+AGQALgAAIXMAbwB1AHIAYwBlAEMAbwBuAG4AZQBjAHQAaQBvAG4AACtkAGUAcwB0AGkAbgBhAHQA
+aQBvAG4AQwBvAG4AbgBlAGMAdABpAG8AbgAAL2UAbgBhAGIAbABlAFQAYQByAGcAZQB0AEEAYwBj
+AGUAcwBzAFQAZQBhAG0AcwAAcVMAQwBfADEAOAAxAGIAZQBmADMAYwA0AGUAZQA1ADQAOABiAGMA
+OAA0ADQAOQAxADAAZABhADYAYQBlAGYAMgA5ADIAYQAuAFAAcgBvAHAAZQByAHQAaQBlAHMALgBS
+AGUAcwBvAHUAcgBjAGUAcwAAAAA0VaoY69q9RYSJC58aNkCoAAiJhF3NgIDMkQi3elxWGTTgiQMG
+EhQDBhIYAyAAAQkgBAEIDhIVEhkFIAEBEhAIcF344HUbzqcDBhIdBgYVEiEBDgQGHRIlCSADARIV
+HQgSGQMgAA4DIAACBCABAQIDKAAOAygAAgMGEgUFIAEBEgUEIAASKQQoABIpAwYSLQMGEjEEAAAS
+LQQAABIxBQABARIxBAgAEi0ECAASMQMGEiAEAAASIAQIABIgBCABAQ4EIAEBCAYgAgIOEWkFIAEd
+CAgEAQAAAAQAAQEOBCABHBwDIAAcBSABARF9CCABEoCBEoCFBSAAHRIlBRUSIQEOCCAAFRGAjQEC
+BhURgJEBAgQgABMABSABARMAIwcMEikSdRIpEnUSeRKAiRIlEnkdEiUIFRGAkQECFRGAkQECAgYO
+BSABAhIlBQACAg4OBSABAhMABxUSgJUBEiUFIAIBHBgPEAECHgAdHgAVEoCVAR4ABAoBEiUJIAEB
+FRGAjQECBSABARIlEwcFEiUSgJ0SgJ0VEoCVARIlEiQDBhIVAwYdCAQgAQ4IBCABAggFIAIBCBwF
+IAASgK0FIAASgLEGIAESgLUOBSAAEoC5BiABEoC9HAUAABKAwQYgARwSgMUIAAESgM0RgNEFIAAS
+gNUHIAIBDhKA1QQHARItBiABARGA3QgBAAIAAAAAAAMAAAFHAQAaLk5FVEZyYW1ld29yayxWZXJz
+aW9uPXY0LjABAFQOFEZyYW1ld29ya0Rpc3BsYXlOYW1lEC5ORVQgRnJhbWV3b3JrIDQoAQAjU0Nf
+MTgxYmVmM2M0ZWU1NDhiYzg0NDkxMGRhNmFlZjI5MmEAAAUBAAAAAA4BAAlUcmlicmlkZ2UAAB8B
+ABpDb3B5cmlnaHQgQCBUcmlicmlkZ2UgMjAxNQAACAEACAAAAAAAHgEAAQBUAhZXcmFwTm9uRXhj
+ZXB0aW9uVGhyb3dzAQAAZD8AAAAAAAAAAAAAfj8AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHA/
+AAAAAAAAAAAAAAAAX0NvckRsbE1haW4AbXNjb3JlZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQ
+AAAAGAAAgAAAAAAAAAAAAAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAASAAAAFhA
+AAD4AwAAAAAAAAAAAAD4AzQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAAAAAAvQTv
+/gAAAQAAAAEAs4yXFgAAAQCzjJcWPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQAAAABAFYA
+YQByAEYAaQBsAGUASQBuAGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBuAAAAAAAA
+ALAEWAMAAAEAUwB0AHIAaQBuAGcARgBpAGwAZQBJAG4AZgBvAAAANAMAAAEAMAAwADAAMAAwADQA
+YgAwAAAANAAKAAEAQwBvAG0AcABhAG4AeQBOAGEAbQBlAAAAAABUAHIAaQBiAHIAaQBkAGcAZQAA
+AHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBuAAAAAABTAEMAXwAxADgAMQBiAGUA
+ZgAzAGMANABlAGUANQA0ADgAYgBjADgANAA0ADkAMQAwAGQAYQA2AGEAZQBmADIAOQAyAGEAAABA
+AA8AAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4ANQA3ADgAMwAuADMANgAwADEA
+OQAAAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAEMAXwAxADgAMQBiAGUAZgAz
+AGMANABlAGUANQA0ADgAYgBjADgANAA0ADkAMQAwAGQAYQA2AGEAZQBmADIAOQAyAGEALgBkAGwA
+bAAAAFwAGwABAEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAAAEMAbwBwAHkAcgBpAGcAaAB0
+ACAAQAAgAFQAcgBpAGIAcgBpAGQAZwBlACAAMgAwADEANQAAAAAAeAAoAAEATwByAGkAZwBpAG4A
+YQBsAEYAaQBsAGUAbgBhAG0AZQAAAFMAQwBfADEAOAAxAGIAZQBmADMAYwA0AGUAZQA1ADQAOABi
+AGMAOAA0ADQAOQAxADAAZABhADYAYQBlAGYAMgA5ADIAYQAuAGQAbABsAAAAaAAkAAEAUAByAG8A
+ZAB1AGMAdABOAGEAbQBlAAAAAABTAEMAXwAxADgAMQBiAGUAZgAzAGMANABlAGUANQA0ADgAYgBj
+ADgANAA0ADkAMQAwAGQAYQA2AGEAZQBmADIAOQAyAGEAAABEAA8AAQBQAHIAbwBkAHUAYwB0AFYA
+ZQByAHMAaQBvAG4AAAAxAC4AMAAuADUANwA4ADMALgAzADYAMAAxADkAAAAAAEgADwABAEEAcwBz
+AGUAbQBiAGwAeQAgAFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADUANwA4ADMALgAzADYAMAAxADkA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAMAAAAkD8AAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
+                  </arrayElements>
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                  name="VSTAProjectName"
+                  typeConverter="NOTBROWSABLE">SC_181bef3c4ee548bc844910da6aef292a</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the programming language used by the script."
+                  name="ScriptLanguage"
+                  typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages, Microsoft.SqlServer.VSTAScriptingLib, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">CSharp</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a comma-separated list of read-only variables."
+                  name="ReadOnlyVariables"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">User::enableTargetAccessTeams</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a comma-separated list of read/write variables."
+                  name="ReadWriteVariables"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="List of breakpoints present on the script."
+                  isArray="true"
+                  name="BreakpointCollection"
+                  typeConverter="NOTBROWSABLE">
+                  <arrayElements
+                    arrayElementCount="0" />
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Checksum to match component metedata against compiled codes."
+                  name="MetadataChecksum"
+                  typeConverter="NOTBROWSABLE">f6ef740ea811dff74be5f3ec1d1833c3</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.SqlServer.Dts.Pipeline.ScriptComponentHost, Microsoft.SqlServer.TxScript, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\check if target entities are enabled for access teams.Connections[sourceConnection]"
+                  connectionManagerID="Package.ConnectionManagers[source]"
+                  connectionManagerRefId="Package.ConnectionManagers[source]"
+                  name="sourceConnection" />
+                <connection
+                  refId="Package\Data Flow Task\check if target entities are enabled for access teams.Connections[destinationConnection]"
+                  connectionManagerID="Package.ConnectionManagers[destination]"
+                  connectionManagerRefId="Package.ConnectionManagers[destination]"
+                  name="destinationConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\check if target entities are enabled for access teams.Inputs[input]"
+                  hasSideEffects="true"
+                  name="input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\check if target entities are enabled for access teams.Inputs[input].Columns[objecttypecode]"
+                      cachedDataType="wstr"
+                      cachedLength="64"
+                      cachedName="objecttypecode"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[objecttypecode]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\check if target entities are enabled for access teams.Outputs[output]"
+                  name="output"
+                  synchronousInputId="Package\Data Flow Task\check if target entities are enabled for access teams.Inputs[input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\check if target entities are enabled for access teams.Outputs[output].Columns[enabled]"
+                      dataType="bool"
+                      lineageId="Package\Data Flow Task\check if target entities are enabled for access teams.Outputs[output].Columns[enabled]"
+                      name="enabled" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\pass only templates for access team enabled entities"
+              componentClassID="{7F88F654-4E20-4D14-84F4-AF9C925D3087}"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="pass only templates for access team enabled entities"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\pass only templates for access team enabled entities.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\pass only templates for access team enabled entities.Inputs[Conditional Split Input].Columns[enabled]"
+                      cachedDataType="bool"
+                      cachedName="enabled"
+                      lineageId="Package\Data Flow Task\check if target entities are enabled for access teams.Outputs[output].Columns[enabled]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\pass only templates for access team enabled entities.Outputs[enabled]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="enabled"
+                  synchronousInputId="Package\Data Flow Task\pass only templates for access team enabled entities.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Data Flow Task\check if target entities are enabled for access teams.Outputs[output].Columns[enabled]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">enabled</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\pass only templates for access team enabled entities.Outputs[disabled]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="disabled"
+                  synchronousInputId="Package\Data Flow Task\pass only templates for access team enabled entities.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">!#{Package\Data Flow Task\check if target entities are enabled for access teams.Outputs[output].Columns[enabled]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">!enabled</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\pass only templates for access team enabled entities.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\Data Flow Task\pass only templates for access team enabled entities.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\pass only templates for access team enabled entities.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Data Flow Task\pass only templates for access team enabled entities.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\pass only templates for access team enabled entities.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\pass only templates for access team enabled entities.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\pass only templates for access team enabled entities.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\pass only templates for access team enabled entities.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\retrieve access team templates"
+              componentClassID="{874F7595-FB5F-40FF-96AF-FBFF8250E3EF}"
+              contactInfo="KingswaySoft Inc.; http://www.kingswaysoft.com; support@kingswaysoft.com; Copyright 2011-2015 KingswaySoft Inc."
+              description="Extract data from Microsoft Dynamics CRM."
+              name="retrieve access team templates"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of source data from Microsoft Dynamics CRM."
+                  expressionType="Notify"
+                  name="SourceType"
+                  typeConverter="KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmSourceType, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7">1</property>
+                <property
+                  dataType="System.String"
+                  description="Dynamics CRM entity to retrieve data from."
+                  expressionType="Notify"
+                  name="SourceEntity"></property>
+                <property
+                  dataType="System.String"
+                  description="FetchXML statement."
+                  expressionType="Notify"
+                  name="FetchXML">&lt;fetch mapping='logical'&gt;
+    &lt;entity name='teamtemplate'&gt;
+        &lt;attribute name='createdby'/&gt;
+        &lt;attribute name='createdbyname'/&gt;
+        &lt;attribute name='createdon'/&gt;
+        &lt;attribute name='createdonbehalfby'/&gt;
+        &lt;attribute name='createdonbehalfbyname'/&gt;
+        &lt;attribute name='createdonbehalfbyyominame'/&gt;
+        &lt;attribute name='defaultaccessrightsmask'/&gt;
+        &lt;attribute name='description'/&gt;
+        &lt;attribute name='issystem'/&gt;
+        &lt;attribute name='issystemname'/&gt;
+        &lt;attribute name='modifiedby'/&gt;
+        &lt;attribute name='modifiedbyname'/&gt;
+        &lt;attribute name='modifiedon'/&gt;
+        &lt;attribute name='modifiedonbehalfby'/&gt;
+        &lt;attribute name='modifiedonbehalfbyname'/&gt;
+        &lt;attribute name='modifiedonbehalfbyyominame'/&gt;
+        &lt;attribute name='objecttypecode'/&gt;
+        &lt;attribute name='teamtemplateid'/&gt;
+        &lt;attribute name='teamtemplatename'/&gt;
+    &lt;/entity&gt;
+&lt;/fetch&gt;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the batch size of the query."
+                  expressionType="Notify"
+                  name="BatchSize">2000</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the batch size of the query."
+                  expressionType="Notify"
+                  name="ImpersonateAs" />
+                <property
+                  dataType="System.Null"
+                  description="Specifies the output timezone for CRM datetime fields."
+                  expressionType="Notify"
+                  name="OutputTimezone"
+                  typeConverter="n`1[[KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmSourceOutputTimezone, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7]], KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7" />
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmSourceComponent, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\retrieve access team templates.Connections[DynamicsCRM]"
+                  connectionManagerID="Package.ConnectionManagers[source]"
+                  connectionManagerRefId="Package.ConnectionManagers[source]"
+                  description="Dynamics CRM Connection Manager"
+                  name="DynamicsCRM" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output]"
+                  name="CRM Primary Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdby]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdby]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdby]"
+                      name="createdby"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdbyname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdbyname]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdbyname]"
+                      name="createdbyname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdon]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdon]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdon]"
+                      name="createdon"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdonbehalfby]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdonbehalfby]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdonbehalfby]"
+                      name="createdonbehalfby"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdonbehalfbyname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdonbehalfbyname]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdonbehalfbyname]"
+                      name="createdonbehalfbyname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdonbehalfbyyominame]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdonbehalfbyyominame]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[createdonbehalfbyyominame]"
+                      name="createdonbehalfbyyominame"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[defaultaccessrightsmask]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[defaultaccessrightsmask]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[defaultaccessrightsmask]"
+                      name="defaultaccessrightsmask"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[description]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[description]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[description]"
+                      name="description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[issystem]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[issystem]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[issystem]"
+                      name="issystem"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[issystemname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[issystemname]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[issystemname]"
+                      name="issystemname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedby]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedby]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedby]"
+                      name="modifiedby"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedbyname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedbyname]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedbyname]"
+                      name="modifiedbyname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedon]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedon]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedon]"
+                      name="modifiedon"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedonbehalfby]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedonbehalfby]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedonbehalfby]"
+                      name="modifiedonbehalfby"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedonbehalfbyname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedonbehalfbyname]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedonbehalfbyname]"
+                      name="modifiedonbehalfbyname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedonbehalfbyyominame]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedonbehalfbyyominame]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[modifiedonbehalfbyyominame]"
+                      name="modifiedonbehalfbyyominame"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[objecttypecode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[objecttypecode]"
+                      length="64"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[objecttypecode]"
+                      name="objecttypecode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[teamtemplateid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[teamtemplateid]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[teamtemplateid]"
+                      name="teamtemplateid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[teamtemplatename]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[teamtemplatename]"
+                      length="100"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[teamtemplatename]"
+                      name="teamtemplatename"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdby]"
+                      dataType="guid"
+                      name="createdby" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdbyname]"
+                      dataType="wstr"
+                      length="200"
+                      name="createdbyname" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdon]"
+                      dataType="dbTimeStamp"
+                      name="createdon" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdonbehalfby]"
+                      dataType="guid"
+                      name="createdonbehalfby" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdonbehalfbyname]"
+                      dataType="wstr"
+                      length="200"
+                      name="createdonbehalfbyname" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[createdonbehalfbyyominame]"
+                      dataType="wstr"
+                      length="200"
+                      name="createdonbehalfbyyominame" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[defaultaccessrightsmask]"
+                      dataType="i4"
+                      name="defaultaccessrightsmask" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[description]"
+                      dataType="nText"
+                      name="description" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[issystem]"
+                      dataType="bool"
+                      name="issystem" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[issystemname]"
+                      dataType="wstr"
+                      length="255"
+                      name="issystemname" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedby]"
+                      dataType="guid"
+                      name="modifiedby" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedbyname]"
+                      dataType="wstr"
+                      length="200"
+                      name="modifiedbyname" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedon]"
+                      dataType="dbTimeStamp"
+                      name="modifiedon" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedonbehalfby]"
+                      dataType="guid"
+                      name="modifiedonbehalfby" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedonbehalfbyname]"
+                      dataType="wstr"
+                      length="200"
+                      name="modifiedonbehalfbyname" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[modifiedonbehalfbyyominame]"
+                      dataType="wstr"
+                      length="200"
+                      name="modifiedonbehalfbyyominame" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[objecttypecode]"
+                      dataType="wstr"
+                      length="64"
+                      name="objecttypecode" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[teamtemplateid]"
+                      dataType="guid"
+                      name="teamtemplateid" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].ExternalColumns[teamtemplatename]"
+                      dataType="wstr"
+                      length="100"
+                      name="teamtemplatename" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\upsert access team templates"
+              componentClassID="{874F7595-FB5F-40FF-96AF-FBFF8250E3EF}"
+              contactInfo="KingswaySoft Inc.; http://www.kingswaysoft.com; support@kingswaysoft.com; Copyright 2011-2015 KingswaySoft Inc."
+              description="Populate data into Microsoft Dynamics CRM."
+              name="upsert access team templates"
+              usesDispositions="true"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Destination entity to write data."
+                  expressionType="Notify"
+                  name="DestinationEntity">teamtemplate</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how data is written to CRM server."
+                  name="ActionType"
+                  typeConverter="KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmDestinationActionType, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7">5</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the values of CRM lookup fields should be removed if the reference records cannot be found. "
+                  expressionType="Notify"
+                  name="RemoveUnresolvableReferences">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether duplicate detection should be enabled when creating or updating CRM records. Duplicate records are determined by the duplicate detection rules and settings defined in Microsoft Dynamics CRM."
+                  expressionType="Notify"
+                  name="EnableDuplicateDetection">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the matching criteria to be used when Upsert action is chosen."
+                  expressionType="Notify"
+                  name="UpsertMatchingCriteria"
+                  typeConverter="n`1[[KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmUpsertMatchingCriteria, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7]], KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7">1</property>
+                <property
+                  dataType="System.String"
+                  description="Specify the matching fields to be used to determine the matching records that exist in CRM when Manually Specify option is chosen for Upsert action."
+                  expressionType="Notify"
+                  name="UpsertMatchingFields"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to ignore those NULL-valued fields."
+                  expressionType="Notify"
+                  name="IgnoreNullValuedFields">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to ignore those fields that have no value changes in the target system. "
+                  name="IgnoreUnchangedFields">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify what action will be taken when multiple matches are found with Upsert action."
+                  expressionType="Notify"
+                  name="HandlingOfMultipleMatches"
+                  typeConverter="n`1[[KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmUpsertHandlingOfMultipleMatches, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7]], KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7">0</property>
+                <property
+                  dataType="System.String"
+                  description="Workflow to be executed."
+                  expressionType="Notify"
+                  name="Workflow"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of records to be sent to Microsoft Dynamics CRM in each batch (CRM 2011 Update Rollup 12 or later is required if batch size is greater than 1)."
+                  expressionType="Notify"
+                  name="BatchSize">200</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether datetime values should be sent to CRM server in UTC format."
+                  expressionType="Notify"
+                  name="SendDateTimeInUtcFormat">false</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmDestinationComponent, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\upsert access team templates.Connections[DynamicsCRM]"
+                  connectionManagerID="Package.ConnectionManagers[destination]"
+                  connectionManagerRefId="Package.ConnectionManagers[destination]"
+                  description="Dynamics CRM Connection Manager"
+                  name="DynamicsCRM" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\upsert access team templates.Inputs[Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].Columns[defaultaccessrightsmask]"
+                      cachedDataType="i4"
+                      cachedName="defaultaccessrightsmask"
+                      externalMetadataColumnId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[defaultaccessrightsmask]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[defaultaccessrightsmask]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].Columns[description]"
+                      cachedDataType="nText"
+                      cachedName="description"
+                      externalMetadataColumnId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[description]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[description]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].Columns[objecttypecode]"
+                      cachedDataType="wstr"
+                      cachedLength="64"
+                      cachedName="objecttypecode"
+                      externalMetadataColumnId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[objecttypecode]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[objecttypecode]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].Columns[teamtemplateid]"
+                      cachedDataType="guid"
+                      cachedName="teamtemplateid"
+                      externalMetadataColumnId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[teamtemplateid]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[teamtemplateid]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].Columns[teamtemplatename]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="teamtemplatename"
+                      externalMetadataColumnId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[teamtemplatename]"
+                      lineageId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output].Columns[teamtemplatename]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[createdby]"
+                      dataType="guid"
+                      name="createdby">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CrmFieldType">Lookup</property>
+                        <property
+                          dataType="System.String"
+                          name="LookupTypes">systemuser</property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Createable">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Updateable">false</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[defaultaccessrightsmask]"
+                      dataType="i4"
+                      name="defaultaccessrightsmask">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CrmFieldType">Integer</property>
+                        <property
+                          dataType="System.String"
+                          name="LookupTypes"></property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Createable">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Updateable">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[description]"
+                      dataType="nText"
+                      name="description">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CrmFieldType">Memo</property>
+                        <property
+                          dataType="System.String"
+                          name="LookupTypes"></property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Createable">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Updateable">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[modifiedby]"
+                      dataType="guid"
+                      name="modifiedby">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CrmFieldType">Lookup</property>
+                        <property
+                          dataType="System.String"
+                          name="LookupTypes">systemuser</property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Createable">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Updateable">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[objecttypecode]"
+                      dataType="wstr"
+                      length="64"
+                      name="objecttypecode">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CrmFieldType">EntityName</property>
+                        <property
+                          dataType="System.String"
+                          name="LookupTypes"></property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Createable">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Updateable">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[teamtemplateid]"
+                      dataType="guid"
+                      name="teamtemplateid">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CrmFieldType">Uniqueidentifier</property>
+                        <property
+                          dataType="System.String"
+                          name="LookupTypes"></property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Createable">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Updateable">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Inputs[Input].ExternalColumns[teamtemplatename]"
+                      dataType="wstr"
+                      length="100"
+                      name="teamtemplatename">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CrmFieldType">String</property>
+                        <property
+                          dataType="System.String"
+                          name="LookupTypes"></property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Createable">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          name="Updateable">true</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\upsert access team templates.Outputs[Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error Output"
+                  synchronousInputId="Package\Data Flow Task\upsert access team templates.Inputs[Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Outputs[Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\upsert access team templates.Outputs[Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Outputs[Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\upsert access team templates.Outputs[Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Outputs[Error Output].Columns[CrmErrorMessage]"
+                      dataType="wstr"
+                      length="2048"
+                      lineageId="Package\Data Flow Task\upsert access team templates.Outputs[Error Output].Columns[CrmErrorMessage]"
+                      name="CrmErrorMessage" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\upsert access team templates.Outputs[Default Output]"
+                  exclusionGroup="1"
+                  name="Default Output"
+                  synchronousInputId="Package\Data Flow Task\upsert access team templates.Inputs[Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Outputs[Default Output].Columns[CrmRecordId]"
+                      dataType="guid"
+                      lineageId="Package\Data Flow Task\upsert access team templates.Outputs[Default Output].Columns[CrmRecordId]"
+                      name="CrmRecordId" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\upsert access team templates.Outputs[Default Output].Columns[IsNew]"
+                      dataType="bool"
+                      lineageId="Package\Data Flow Task\upsert access team templates.Outputs[Default Output].Columns[IsNew]"
+                      name="IsNew" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[CRM Primary Output]"
+              endId="Package\Data Flow Task\check if target entities are enabled for access teams.Inputs[input]"
+              name="CRM Primary Output"
+              startId="Package\Data Flow Task\retrieve access team templates.Outputs[CRM Primary Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[enabled]"
+              endId="Package\Data Flow Task\upsert access team templates.Inputs[Input]"
+              name="enabled"
+              startId="Package\Data Flow Task\pass only templates for access team enabled entities.Outputs[enabled]" />
+            <path
+              refId="Package\Data Flow Task.Paths[output]"
+              endId="Package\Data Flow Task\pass only templates for access team enabled entities.Inputs[Conditional Split Input]"
+              name="output"
+              startId="Package\Data Flow Task\check if target entities are enabled for access teams.Outputs[output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Data Flow Task"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="225,42"
+          Id="Package\Data Flow Task\retrieve access team templates"
+          TopLeft="363,4" />
+        <NodeLayout
+          Size="219,42"
+          Id="Package\Data Flow Task\upsert access team templates"
+          TopLeft="367,253" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\Data Flow Task\pass only templates for access team enabled entities"
+          TopLeft="366,162" />
+        <NodeLayout
+          Size="223,42"
+          Id="Package\Data Flow Task\check if target entities are enabled for access teams"
+          TopLeft="366,82" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[enabled]"
+          TopLeft="477.25,204">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-17.87259765625,15.87548828125,35.7451953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[CRM Primary Output]"
+          TopLeft="476.5,46">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36"
+              Start="0,0"
+              End="0,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[output]"
+          TopLeft="477.75,124">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
