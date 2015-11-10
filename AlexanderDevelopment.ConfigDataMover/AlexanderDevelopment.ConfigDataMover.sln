@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexanderDevelopment.ConfigDataMover", "ConfigDataMover\AlexanderDevelopment.ConfigDataMover.csproj", "{2BBA0CED-20DF-440E-BE46-EFCF280AD21E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexanderDevelopment.ConfigDataMover", "AlexanderDevelopment.ConfigDataMover\AlexanderDevelopment.ConfigDataMover.csproj", "{2BBA0CED-20DF-440E-BE46-EFCF280AD21E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexanderDevelopment.ConfigDataMover.Cli", "AlexanderDevelopment.ConfigDataMover.Cli\AlexanderDevelopment.ConfigDataMover.Cli.csproj", "{6D2499A8-7466-4835-ADA2-DB2397555433}"
 EndProject
