@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// JobStep.cs
+// about.cs
 //
 // Copyright 2015 Lucas Alexander
 // 
@@ -18,16 +18,26 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace AlexanderDevelopment.ConfigDataMover.Lib
+namespace AlexanderDevelopment.ConfigDataMover
 {
-    public class JobStep
+    public partial class About : Form
     {
-        public string StepName { get; set; }
-        public string StepFetch { get; set; }
-        public bool UpdateOnly { get; set; }
+        public About()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

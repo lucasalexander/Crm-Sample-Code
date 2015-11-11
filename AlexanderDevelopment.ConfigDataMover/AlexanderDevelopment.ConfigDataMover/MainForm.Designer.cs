@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.stepNameTextBox = new System.Windows.Forms.TextBox();
             this.stepFetchTextBox = new System.Windows.Forms.TextBox();
             this.removeStepButton = new System.Windows.Forms.Button();
-            this.saveJobButton = new System.Windows.Forms.Button();
-            this.loadJobButton = new System.Windows.Forms.Button();
             this.stepDetailGroupBox = new System.Windows.Forms.GroupBox();
             this.updateOnlyCheckBox = new System.Windows.Forms.CheckBox();
             this.stepFetchLabel = new System.Windows.Forms.Label();
@@ -54,18 +53,24 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.saveConnectionsCheckBox = new System.Windows.Forms.CheckBox();
             this.targetLabel = new System.Windows.Forms.Label();
-            this.runButton = new System.Windows.Forms.Button();
             this.sourceLabel = new System.Windows.Forms.Label();
             this.targetTextBox = new System.Windows.Forms.TextBox();
             this.sourceTextBox = new System.Windows.Forms.TextBox();
             this.formStatusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLoadButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSaveButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripRunButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripAboutButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.stepDetailGroupBox.SuspendLayout();
             this.stepsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guidMappingGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.formStatusStrip.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // stepNameTextBox
@@ -95,26 +100,6 @@
             this.removeStepButton.Text = "Remove step";
             this.removeStepButton.UseVisualStyleBackColor = true;
             this.removeStepButton.Click += new System.EventHandler(this.removeStepButton_Click);
-            // 
-            // saveJobButton
-            // 
-            this.saveJobButton.Location = new System.Drawing.Point(126, 19);
-            this.saveJobButton.Name = "saveJobButton";
-            this.saveJobButton.Size = new System.Drawing.Size(111, 23);
-            this.saveJobButton.TabIndex = 7;
-            this.saveJobButton.Text = "Save job to file";
-            this.saveJobButton.UseVisualStyleBackColor = true;
-            this.saveJobButton.Click += new System.EventHandler(this.saveJobButton_Click);
-            // 
-            // loadJobButton
-            // 
-            this.loadJobButton.Location = new System.Drawing.Point(9, 19);
-            this.loadJobButton.Name = "loadJobButton";
-            this.loadJobButton.Size = new System.Drawing.Size(111, 23);
-            this.loadJobButton.TabIndex = 5;
-            this.loadJobButton.Text = "Load job from file";
-            this.loadJobButton.UseVisualStyleBackColor = true;
-            this.loadJobButton.Click += new System.EventHandler(this.loadJobButton_Click);
             // 
             // stepDetailGroupBox
             // 
@@ -226,7 +211,7 @@
             // mapBuCheckBox
             // 
             this.mapBuCheckBox.AutoSize = true;
-            this.mapBuCheckBox.Location = new System.Drawing.Point(9, 123);
+            this.mapBuCheckBox.Location = new System.Drawing.Point(9, 94);
             this.mapBuCheckBox.Name = "mapBuCheckBox";
             this.mapBuCheckBox.Size = new System.Drawing.Size(168, 17);
             this.mapBuCheckBox.TabIndex = 25;
@@ -236,7 +221,7 @@
             // mapCurrencyCheckBox
             // 
             this.mapCurrencyCheckBox.AutoSize = true;
-            this.mapCurrencyCheckBox.Location = new System.Drawing.Point(9, 146);
+            this.mapCurrencyCheckBox.Location = new System.Drawing.Point(9, 117);
             this.mapCurrencyCheckBox.Name = "mapCurrencyCheckBox";
             this.mapCurrencyCheckBox.Size = new System.Drawing.Size(153, 17);
             this.mapCurrencyCheckBox.TabIndex = 30;
@@ -306,16 +291,13 @@
             this.groupBox2.Controls.Add(this.saveConnectionsCheckBox);
             this.groupBox2.Controls.Add(this.mapBuCheckBox);
             this.groupBox2.Controls.Add(this.targetLabel);
-            this.groupBox2.Controls.Add(this.runButton);
             this.groupBox2.Controls.Add(this.sourceLabel);
-            this.groupBox2.Controls.Add(this.saveJobButton);
             this.groupBox2.Controls.Add(this.targetTextBox);
             this.groupBox2.Controls.Add(this.mapCurrencyCheckBox);
             this.groupBox2.Controls.Add(this.sourceTextBox);
-            this.groupBox2.Controls.Add(this.loadJobButton);
-            this.groupBox2.Location = new System.Drawing.Point(12, 12);
+            this.groupBox2.Location = new System.Drawing.Point(12, 28);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(567, 177);
+            this.groupBox2.Size = new System.Drawing.Size(567, 161);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Configuration data job details";
@@ -323,7 +305,7 @@
             // saveConnectionsCheckBox
             // 
             this.saveConnectionsCheckBox.AutoSize = true;
-            this.saveConnectionsCheckBox.Location = new System.Drawing.Point(9, 100);
+            this.saveConnectionsCheckBox.Location = new System.Drawing.Point(9, 71);
             this.saveConnectionsCheckBox.Name = "saveConnectionsCheckBox";
             this.saveConnectionsCheckBox.Size = new System.Drawing.Size(146, 17);
             this.saveConnectionsCheckBox.TabIndex = 20;
@@ -333,26 +315,16 @@
             // targetLabel
             // 
             this.targetLabel.AutoSize = true;
-            this.targetLabel.Location = new System.Drawing.Point(6, 77);
+            this.targetLabel.Location = new System.Drawing.Point(6, 48);
             this.targetLabel.Name = "targetLabel";
             this.targetLabel.Size = new System.Drawing.Size(38, 13);
             this.targetLabel.TabIndex = 154;
             this.targetLabel.Text = "Target";
             // 
-            // runButton
-            // 
-            this.runButton.Location = new System.Drawing.Point(243, 19);
-            this.runButton.Name = "runButton";
-            this.runButton.Size = new System.Drawing.Size(106, 23);
-            this.runButton.TabIndex = 10;
-            this.runButton.Text = "Run job";
-            this.runButton.UseVisualStyleBackColor = true;
-            this.runButton.Click += new System.EventHandler(this.runButton_Click);
-            // 
             // sourceLabel
             // 
             this.sourceLabel.AutoSize = true;
-            this.sourceLabel.Location = new System.Drawing.Point(6, 51);
+            this.sourceLabel.Location = new System.Drawing.Point(6, 22);
             this.sourceLabel.Name = "sourceLabel";
             this.sourceLabel.Size = new System.Drawing.Size(41, 13);
             this.sourceLabel.TabIndex = 153;
@@ -360,14 +332,14 @@
             // 
             // targetTextBox
             // 
-            this.targetTextBox.Location = new System.Drawing.Point(71, 74);
+            this.targetTextBox.Location = new System.Drawing.Point(71, 48);
             this.targetTextBox.Name = "targetTextBox";
             this.targetTextBox.Size = new System.Drawing.Size(490, 20);
             this.targetTextBox.TabIndex = 18;
             // 
             // sourceTextBox
             // 
-            this.sourceTextBox.Location = new System.Drawing.Point(71, 48);
+            this.sourceTextBox.Location = new System.Drawing.Point(71, 19);
             this.sourceTextBox.Name = "sourceTextBox";
             this.sourceTextBox.Size = new System.Drawing.Size(490, 20);
             this.sourceTextBox.TabIndex = 15;
@@ -387,19 +359,80 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(0, 17);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLoadButton,
+            this.toolStripSaveButton,
+            this.toolStripRunButton,
+            this.toolStripSeparator1,
+            this.toolStripAboutButton});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(590, 25);
+            this.toolStrip1.TabIndex = 152;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripLoadButton
+            // 
+            this.toolStripLoadButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripLoadButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLoadButton.Image")));
+            this.toolStripLoadButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripLoadButton.Name = "toolStripLoadButton";
+            this.toolStripLoadButton.Size = new System.Drawing.Size(57, 22);
+            this.toolStripLoadButton.Text = "Load job";
+            this.toolStripLoadButton.ToolTipText = "Load job";
+            this.toolStripLoadButton.Click += new System.EventHandler(this.loadJobButton_Click);
+            // 
+            // toolStripSaveButton
+            // 
+            this.toolStripSaveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSaveButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSaveButton.Image")));
+            this.toolStripSaveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSaveButton.Name = "toolStripSaveButton";
+            this.toolStripSaveButton.Size = new System.Drawing.Size(55, 22);
+            this.toolStripSaveButton.Text = "Save job";
+            this.toolStripSaveButton.Click += new System.EventHandler(this.saveJobButton_Click);
+            // 
+            // toolStripRunButton
+            // 
+            this.toolStripRunButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripRunButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripRunButton.Image")));
+            this.toolStripRunButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripRunButton.Name = "toolStripRunButton";
+            this.toolStripRunButton.Size = new System.Drawing.Size(52, 22);
+            this.toolStripRunButton.Text = "Run job";
+            this.toolStripRunButton.Click += new System.EventHandler(this.runButton_Click);
+            // 
+            // toolStripAboutButton
+            // 
+            this.toolStripAboutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripAboutButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripAboutButton.Image")));
+            this.toolStripAboutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripAboutButton.Name = "toolStripAboutButton";
+            this.toolStripAboutButton.Size = new System.Drawing.Size(23, 22);
+            this.toolStripAboutButton.Text = "About";
+            this.toolStripAboutButton.Click += new System.EventHandler(this.toolStripAboutButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(590, 746);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.formStatusStrip);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.stepsGroupBox);
             this.Controls.Add(this.stepDetailGroupBox);
             this.Name = "MainForm";
-            this.Text = "Dynamics CRM Config Data Mover";
+            this.Text = "Dynamics CRM Configuration Data Mover";
             this.stepDetailGroupBox.ResumeLayout(false);
             this.stepDetailGroupBox.PerformLayout();
             this.stepsGroupBox.ResumeLayout(false);
@@ -409,6 +442,8 @@
             this.groupBox2.PerformLayout();
             this.formStatusStrip.ResumeLayout(false);
             this.formStatusStrip.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,8 +453,6 @@
         private System.Windows.Forms.TextBox stepNameTextBox;
         private System.Windows.Forms.TextBox stepFetchTextBox;
         private System.Windows.Forms.Button removeStepButton;
-        private System.Windows.Forms.Button saveJobButton;
-        private System.Windows.Forms.Button loadJobButton;
         private System.Windows.Forms.GroupBox stepDetailGroupBox;
         private System.Windows.Forms.Label stepFetchLabel;
         private System.Windows.Forms.Label stepNameLabel;
@@ -442,11 +475,16 @@
         private System.Windows.Forms.TextBox targetTextBox;
         private System.Windows.Forms.Label sourceLabel;
         private System.Windows.Forms.Label targetLabel;
-        private System.Windows.Forms.Button runButton;
         private System.Windows.Forms.CheckBox updateOnlyCheckBox;
         private System.Windows.Forms.CheckBox saveConnectionsCheckBox;
         private System.Windows.Forms.StatusStrip formStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripLoadButton;
+        private System.Windows.Forms.ToolStripButton toolStripSaveButton;
+        private System.Windows.Forms.ToolStripButton toolStripRunButton;
+        private System.Windows.Forms.ToolStripButton toolStripAboutButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
