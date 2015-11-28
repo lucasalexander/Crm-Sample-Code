@@ -1,0 +1,1 @@
+AlexanderDevelopment.ConfigDataMover.Cli.exe -c "C:\git-repos\CRM-Sample-Code\ConfigDataMover\samplefiles\full-noconnection.xml" -s "Url=http://192.168.65.101/LucasTest01; Domain=companyx; Username=administrator; Password=Tribridge#01;" -t "Url=http://192.168.65.101/LucasTest02; Domain=companyx; Username=administrator; Password=Tribridge#01;"

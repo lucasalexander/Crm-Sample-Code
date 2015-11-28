@@ -1,0 +1,824 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/28/2015 10:22:57 AM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="77Z8G12"
+  DTS:CreatorName="TRIBRIDGE\LucasAlexander"
+  DTS:DTSID="{2A93D251-3C56-4E90-A46B-9DFF1E414308}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.5583.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{3D464A0E-068A-4F4B-8E3A-EA31E0C5E31E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Dynamics CRM Connection Manager]"
+      DTS:CreationName="DynamicsCRM"
+      DTS:DTSID="{DD25198B-1729-4C23-B674-501069463F9F}"
+      DTS:ObjectName="Dynamics CRM Connection Manager">
+      <DTS:ObjectData>
+        <CrmConnectionManager
+          ConnectionString="AuthenticationType=ActiveDirectory;ServiceEndpoint=Soap2011;DiscoveryServerUrl=http://192.168.65.101;UserName=administrator;Domain=companyx;OrganizationName=LucasML;CrmServerUrl=http://192.168.65.101/LucasML;ProxyUsername=;ProxyServer=;ProxyServerPort=0;HomeRealmUri=;ServiceTimeout=120;RetryOnIntermittentErrors=True">
+          <Password
+            Sensitive="1" xmlns="www.microsoft.com/SqlServer/Dts"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1jeLMSVhcU+4JGKIGvht4gAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAC6qoDtHj5DzNFM8U9cxwO8AAAAAASAAACgAAAAEAAAAKHYGAPMh+nvc/+fkao7xJMgAAAAfpzQ25bp2lBgfOJ8wGXmcGdkhYaOkThpmEsnJLVYjjsUAAAARFN+65AeQauYkf/q9wcSvXN6Ans</Password>
+        </CrmConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{00053E75-EF6A-4502-A31A-84CF12034052}"
+      DTS:ObjectName="Flat File Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\git-repos\working\ml-working\contacts-for-model.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="address1_stateorprovince"
+              DTS:DTSID="{4082E58F-DA66-4E98-81F4-8C5FF93D2A2B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="6"
+              DTS:TextQualified="True"
+              DTS:ObjectName="annualincome"
+              DTS:DTSID="{69FAE608-05EE-4B1B-8C07-B2E580A15218}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lpa_age"
+              DTS:DTSID="{0DED96AA-72A5-4F88-BE32-482EA9CAAD0D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="numberofchildren"
+              DTS:DTSID="{4641F388-6F18-4DC1-ADD2-3880B0E2093A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="educationcodename"
+              DTS:DTSID="{2ED523ED-A08D-41E0-A2E9-E994C6811065}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="familystatuscodename"
+              DTS:DTSID="{8D728367-D499-4012-8363-D0755CDB8986}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="gendercodename"
+              DTS:DTSID="{772BE858-41CB-46C1-8AE4-67583913D751}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lpa_bikebuyername"
+              DTS:DTSID="{AA7E31F2-9412-48BC-8856-4D145211FC32}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lpa_commutedistancename"
+              DTS:DTSID="{ADDE98FE-C19B-4FED-B187-BF14B9C0ADC5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lpa_homeownername"
+              DTS:DTSID="{0C5CEB11-2562-44E5-A6A7-8FBD63DE4AF0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lpa_occupationname"
+              DTS:DTSID="{21AB4940-06C1-4EF0-A5B2-4517001715AE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lpa_numberofcarsowned"
+              DTS:DTSID="{0636D3CE-13D5-493D-85C8-F4DA6DA7BEA5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lpa_numberofchildrenathome"
+              DTS:DTSID="{DB279F25-8C4E-4A3F-A3D9-ABFA8B67B665}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="{5918251B-2970-45A4-AB5F-01C3C588FE5A}"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{679839E6-C016-4546-BEEF-3DF4D767CDDF}"
+      DTS:ExecutableType="{5918251B-2970-45A4-AB5F-01C3C588FE5A}"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\Dynamics CRM Source"
+              componentClassID="{874F7595-FB5F-40FF-96AF-FBFF8250E3EF}"
+              contactInfo="KingswaySoft Inc.; http://www.kingswaysoft.com; support@kingswaysoft.com; Copyright 2011-2015 KingswaySoft Inc."
+              description="Extract data from Microsoft Dynamics CRM."
+              name="Dynamics CRM Source"
+              usesDispositions="true">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of source data from Microsoft Dynamics CRM."
+                  expressionType="Notify"
+                  name="SourceType"
+                  typeConverter="KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmSourceType, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7">1</property>
+                <property
+                  dataType="System.String"
+                  description="Dynamics CRM entity to retrieve data from."
+                  expressionType="Notify"
+                  name="SourceEntity"></property>
+                <property
+                  dataType="System.String"
+                  description="FetchXML statement."
+                  expressionType="Notify"
+                  name="FetchXML">&lt;fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false"&gt;
+  &lt;entity name="contact"&gt;
+    &lt;attribute name="numberofchildren" /&gt;
+    &lt;attribute name="lpa_occupation" /&gt;
+    &lt;attribute name="lpa_occupationname" /&gt;
+    &lt;attribute name="lpa_numberofchildrenathome" /&gt;
+    &lt;attribute name="lpa_numberofcarsowned" /&gt;
+    &lt;attribute name="lpa_homeowner" /&gt;
+    &lt;attribute name="lpa_homeownername" /&gt;
+    &lt;attribute name="lpa_commutedistance" /&gt;
+    &lt;attribute name="lpa_commutedistancename" /&gt;
+    &lt;attribute name="lpa_bikebuyer" /&gt;
+    &lt;attribute name="lpa_bikebuyername" /&gt;
+    &lt;attribute name="lpa_age" /&gt;
+    &lt;attribute name="gendercode" /&gt;
+    &lt;attribute name="gendercodename" /&gt;
+    &lt;attribute name="familystatuscode" /&gt;
+    &lt;attribute name="familystatuscodename" /&gt;
+    &lt;attribute name="educationcode" /&gt;
+    &lt;attribute name="educationcodename" /&gt;
+    &lt;attribute name="annualincome" /&gt;
+    &lt;attribute name="address1_stateorprovince" /&gt;
+    &lt;order attribute="lpa_bikebuyer" descending="false" /&gt;
+  &lt;/entity&gt;
+&lt;/fetch&gt;</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the batch size of the query."
+                  expressionType="Notify"
+                  name="BatchSize">2000</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the batch size of the query."
+                  expressionType="Notify"
+                  name="ImpersonateAs" />
+                <property
+                  dataType="System.Null"
+                  description="Specifies the output timezone for CRM datetime fields."
+                  expressionType="Notify"
+                  name="OutputTimezone"
+                  typeConverter="n`1[[KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmSourceOutputTimezone, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7]], KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7" />
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">KingswaySoft.IntegrationToolkit.DynamicsCrm.CrmSourceComponent, KingswaySoft.IntegrationToolkit.DynamicsCrm, Version=1.0.2012.0, Culture=neutral, PublicKeyToken=705df8e0751bcea7</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Dynamics CRM Source.Connections[DynamicsCRM]"
+                  connectionManagerID="Package.ConnectionManagers[Dynamics CRM Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Dynamics CRM Connection Manager]"
+                  description="Dynamics CRM Connection Manager"
+                  name="DynamicsCRM" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output]"
+                  name="CRM Primary Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[address1_stateorprovince]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[address1_stateorprovince]"
+                      length="50"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[address1_stateorprovince]"
+                      name="address1_stateorprovince"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[annualincome]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[annualincome]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[annualincome]"
+                      name="annualincome"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[contactid]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[contactid]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[contactid]"
+                      name="contactid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_age]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_age]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_age]"
+                      name="lpa_age"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[numberofchildren]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[numberofchildren]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[numberofchildren]"
+                      name="numberofchildren"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[educationcodename]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[educationcodename]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[educationcodename]"
+                      name="educationcodename"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[familystatuscodename]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[familystatuscodename]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[familystatuscodename]"
+                      name="familystatuscodename"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[gendercodename]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[gendercodename]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[gendercodename]"
+                      name="gendercodename"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_bikebuyername]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_bikebuyername]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_bikebuyername]"
+                      name="lpa_bikebuyername"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_commutedistancename]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_commutedistancename]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_commutedistancename]"
+                      name="lpa_commutedistancename"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_homeownername]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_homeownername]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_homeownername]"
+                      name="lpa_homeownername"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_occupationname]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_occupationname]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_occupationname]"
+                      name="lpa_occupationname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_numberofcarsowned]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_numberofcarsowned]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_numberofcarsowned]"
+                      name="lpa_numberofcarsowned"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_numberofchildrenathome]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_numberofchildrenathome]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_numberofchildrenathome]"
+                      name="lpa_numberofchildrenathome"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[educationcode]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[educationcode]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[educationcode]"
+                      name="educationcode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[familystatuscode]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[familystatuscode]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[familystatuscode]"
+                      name="familystatuscode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[gendercode]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[gendercode]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[gendercode]"
+                      name="gendercode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_bikebuyer]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_bikebuyer]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_bikebuyer]"
+                      name="lpa_bikebuyer"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_commutedistance]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_commutedistance]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_commutedistance]"
+                      name="lpa_commutedistance"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_homeowner]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_homeowner]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_homeowner]"
+                      name="lpa_homeowner"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_occupation]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_occupation]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_occupation]"
+                      name="lpa_occupation"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[address1_stateorprovince]"
+                      dataType="wstr"
+                      length="50"
+                      name="address1_stateorprovince" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[annualincome]"
+                      dataType="cy"
+                      name="annualincome" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[contactid]"
+                      dataType="guid"
+                      name="contactid" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_age]"
+                      dataType="i4"
+                      name="lpa_age" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[numberofchildren]"
+                      dataType="i4"
+                      name="numberofchildren" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[educationcodename]"
+                      dataType="wstr"
+                      length="255"
+                      name="educationcodename" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[familystatuscodename]"
+                      dataType="wstr"
+                      length="255"
+                      name="familystatuscodename" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[gendercodename]"
+                      dataType="wstr"
+                      length="255"
+                      name="gendercodename" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_bikebuyername]"
+                      dataType="wstr"
+                      length="255"
+                      name="lpa_bikebuyername" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_commutedistancename]"
+                      dataType="wstr"
+                      length="255"
+                      name="lpa_commutedistancename" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_homeownername]"
+                      dataType="wstr"
+                      length="255"
+                      name="lpa_homeownername" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_occupationname]"
+                      dataType="wstr"
+                      length="255"
+                      name="lpa_occupationname" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_numberofcarsowned]"
+                      dataType="i4"
+                      name="lpa_numberofcarsowned" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_numberofchildrenathome]"
+                      dataType="i4"
+                      name="lpa_numberofchildrenathome" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[educationcode]"
+                      dataType="i4"
+                      name="educationcode" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[familystatuscode]"
+                      dataType="i4"
+                      name="familystatuscode" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[gendercode]"
+                      dataType="i4"
+                      name="gendercode" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_bikebuyer]"
+                      dataType="bool"
+                      name="lpa_bikebuyer" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_commutedistance]"
+                      dataType="i4"
+                      name="lpa_commutedistance" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_homeowner]"
+                      dataType="bool"
+                      name="lpa_homeowner" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].ExternalColumns[lpa_occupation]"
+                      dataType="i4"
+                      name="lpa_occupation" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Flat File Destination"
+              componentClassID="{8DA75FED-1B7C-407D-B2AD-2B24209CCCA4}"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Flat File Destination"
+              localeId="1033"
+              name="Flat File Destination">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Flat File Destination.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Flat File Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Flat File Connection Manager]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[address1_stateorprovince]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="address1_stateorprovince"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[address1_stateorprovince]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[address1_stateorprovince]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[annualincome]"
+                      cachedDataType="cy"
+                      cachedName="annualincome"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[annualincome]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[annualincome]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[lpa_age]"
+                      cachedDataType="i4"
+                      cachedName="lpa_age"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_age]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_age]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[numberofchildren]"
+                      cachedDataType="i4"
+                      cachedName="numberofchildren"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[numberofchildren]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[numberofchildren]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[educationcodename]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="educationcodename"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[educationcodename]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[educationcodename]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[familystatuscodename]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="familystatuscodename"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[familystatuscodename]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[familystatuscodename]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[gendercodename]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="gendercodename"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[gendercodename]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[gendercodename]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[lpa_bikebuyername]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="lpa_bikebuyername"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_bikebuyername]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_bikebuyername]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[lpa_commutedistancename]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="lpa_commutedistancename"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_commutedistancename]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_commutedistancename]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[lpa_homeownername]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="lpa_homeownername"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_homeownername]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_homeownername]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[lpa_occupationname]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="lpa_occupationname"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_occupationname]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_occupationname]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[lpa_numberofcarsowned]"
+                      cachedDataType="i4"
+                      cachedName="lpa_numberofcarsowned"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_numberofcarsowned]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_numberofcarsowned]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[lpa_numberofchildrenathome]"
+                      cachedDataType="i4"
+                      cachedName="lpa_numberofchildrenathome"
+                      externalMetadataColumnId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_numberofchildrenathome]"
+                      lineageId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output].Columns[lpa_numberofchildrenathome]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[address1_stateorprovince]"
+                      dataType="wstr"
+                      length="50"
+                      name="address1_stateorprovince" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[annualincome]"
+                      dataType="cy"
+                      name="annualincome" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_age]"
+                      dataType="i4"
+                      name="lpa_age" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[numberofchildren]"
+                      dataType="i4"
+                      name="numberofchildren" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[educationcodename]"
+                      dataType="wstr"
+                      length="255"
+                      name="educationcodename" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[familystatuscodename]"
+                      dataType="wstr"
+                      length="255"
+                      name="familystatuscodename" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[gendercodename]"
+                      dataType="wstr"
+                      length="255"
+                      name="gendercodename" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_bikebuyername]"
+                      dataType="wstr"
+                      length="255"
+                      name="lpa_bikebuyername" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_commutedistancename]"
+                      dataType="wstr"
+                      length="255"
+                      name="lpa_commutedistancename" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_homeownername]"
+                      dataType="wstr"
+                      length="255"
+                      name="lpa_homeownername" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_occupationname]"
+                      dataType="wstr"
+                      length="255"
+                      name="lpa_occupationname" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_numberofcarsowned]"
+                      dataType="i4"
+                      name="lpa_numberofcarsowned" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[lpa_numberofchildrenathome]"
+                      dataType="i4"
+                      name="lpa_numberofchildrenathome" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[CRM Primary Output]"
+              endId="Package\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input]"
+              name="CRM Primary Output"
+              startId="Package\Data Flow Task\Dynamics CRM Source.Outputs[CRM Primary Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Data Flow Task"
+          TopLeft="5.5,5.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="184,42"
+          Id="Package\Data Flow Task\Dynamics CRM Source"
+          TopLeft="77,71" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\Data Flow Task\Flat File Destination"
+          TopLeft="421,193" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[CRM Primary Output]"
+          TopLeft="169,113">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="338,80"
+              Start="0,0"
+              End="338,72.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36"
+                    Point2="0,40"
+                    Point3="4,40" />
+                  <mssgle:LineSegment
+                    End="334,40" />
+                  <mssgle:CubicBezierSegment
+                    Point1="334,40"
+                    Point2="338,40"
+                    Point3="338,44" />
+                  <mssgle:LineSegment
+                    End="338,72.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

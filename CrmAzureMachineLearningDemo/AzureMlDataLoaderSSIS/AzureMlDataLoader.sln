@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "AzureMlDataLoader", "AzureMlDataLoader\AzureMlDataLoader.dtproj", "{D4FA5B84-25DD-40F7-AF0B-1FE16CA6F8FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4FA5B84-25DD-40F7-AF0B-1FE16CA6F8FC}.Development|Default.ActiveCfg = Development
+		{D4FA5B84-25DD-40F7-AF0B-1FE16CA6F8FC}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
