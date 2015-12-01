@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CrmAzureMlDemo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Tribridge")]
+[assembly: AssemblyCompany("Lucas Alexander")]
 [assembly: AssemblyProduct("CrmAzureMlDemo")]
-[assembly: AssemblyCopyright("Copyright © Tribridge 2015")]
+[assembly: AssemblyCopyright("Copyright © Lucas Alexander 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
