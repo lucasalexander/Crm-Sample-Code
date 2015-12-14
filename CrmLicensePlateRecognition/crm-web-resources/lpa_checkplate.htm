@@ -1,0 +1,130 @@
+<html>
+<head>
+<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.js"></script>
+<script src="ClientGlobalContext.js.aspx"></script> 
+</head>
+<body>
+<input id="checkButton" type="Submit" value="Check plate" onClick="javascript:executeCheckplate();" /> 
+<div id="outputdiv" style="width:600px;height:600px;"></div>
+<script type="text/javascript"> 
+//path to CRM root - you may need to modify this depending on your particular situation
+var _server = window.location.protocol + "//" + window.location.host + "/" + _getContext().getOrgUniqueName();
+
+//full path to CRM organization service 
+var _path = _server + "/XRMServices/2011/Organization.svc/web";
+
+function _getContext() {
+	var errorMessage = "Context is not available.";
+	if (typeof GetGlobalContext != "undefined"){ 
+		return GetGlobalContext(); 
+	}
+	else {
+		if (typeof Xrm != "undefined") {
+			return Xrm.Page.context;
+		}
+		else { 
+			throw new Error(errorMessage); 
+		}
+	}
+}
+
+//command to start checklplate action call when button is pushed  
+function executeCheckplate() { 
+	$("#outputdiv").text("");
+	$("#checkButton").prop('disabled', true);
+	var actionRequest = buildActionRequest();
+	sendQuery(actionRequest);
+} 
+
+//make the action request and handle the response
+function sendQuery(actionRequest) {
+	$.ajax({
+		type: "POST",
+		dataType: "xml",
+		contentType: "text/xml; charset=utf-8",
+		processData: false,
+		url: _path,
+		data: actionRequest,
+		beforeSend: function( xhr ){
+			xhr.setRequestHeader(
+				"SOAPAction",
+				"http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/Execute"
+			); //without the SOAPAction header, CRM will return a 500 error
+		}
+	}).done(function(data) {
+		//if successful, pass returned xml to processing function
+		processData(data);
+		$("#checkButton").prop('disabled', false);
+	}).fail(function(jqXHR, textStatus, errorThrown ) {
+		//if unsuccessful, generate an error alert message
+		alert( "Request failed: " + textStatus + "\n" + errorThrown  );
+		$("#checkButton").prop('disabled', false);
+	});
+}
+
+//process the response from the action call
+function processData(xml) {
+	var contactId = "";
+	var contactName = "";
+	var plateNum = "";
+	var imgUrl = "";
+
+	$(xml).find("a\\:KeyValuePairOfstringanyType, KeyValuePairOfstringanyType").each(function() {
+		var xmlElement = $(this);
+		var key = xmlElement.find("b\\:key, key").text();
+		if(key == "ContactName") {
+			contactName = xmlElement.find("b\\:value, value").text();
+		}
+		if(key == "ContactId") {
+			contactId = xmlElement.find("b\\:value, value").text();
+		}
+		if(key == "PlateNum") {
+			plateNum = xmlElement.find("b\\:value, value").text();
+		}
+		if(key == "ImgUrl") {
+			imgUrl = xmlElement.find("b\\:value, value").text();
+		}
+	});
+
+	if(plateNum!="") {
+		$("#outputdiv").append("Detected plate number: " + plateNum + "<br />");
+	}
+	else {
+		$("#outputdiv").append("No plate detected<br />");
+	}
+
+	if(imgUrl!="") {
+		$("#outputdiv").append("<img src='" + imgUrl + "' width='400' />");
+	}
+	
+	//if a contact is found, display the contact number as a hyperlink
+	if(contactId != '00000000-0000-0000-0000-000000000000') {
+		var contactUrl = _server + "/main.aspx?etc=2&extraqs=&pagetype=entityrecord&id=%7b" + contactId + "%7d";
+		$("#outputdiv").prepend("Contact: <a href='" + contactUrl + "' target='_blank'>" + contactName + "</a><br />");	
+	}
+	else {
+		//otherwise display a message that no contact could be found
+		$("#outputdiv").prepend("No contact found<br />");
+	}
+}
+
+//prepare the soap request to call the checkplate action
+function buildActionRequest() {
+	var request = "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">";
+	request += "<s:Body>"; 
+
+	request += '<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">' + 
+	'<request ' + 
+	' xmlns:b="http://schemas.microsoft.com/xrm/2011/Contracts" ' + 
+	' xmlns:i="http://www.w3.org/2001/XMLSchema-instance">' + 
+	'<b:RequestId i:nil="true"/>' + 
+	'<b:RequestName>lpa_Checkplate</b:RequestName>' + 
+	'</request>' + 
+	'</Execute>'; 
+
+	request += '</s:Body></s:Envelope>'; 
+	return request;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<html>
+<head>
+<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.js"></script>
+<script src="ClientGlobalContext.js.aspx"></script> 
+</head>
+<body>
+<input id="checkButton" type="Submit" value="Check plate" onClick="javascript:executeCheckplate();" /> 
+<div id="outputdiv" style="width:600px;height:600px;"></div>
+<script type="text/javascript"> 
+
+var piRootPath = "http://192.168.1.112:3000";
+
+//command to start checklplate action call when button is pushed  
+function executeCheckplate() { 
+	$("#outputdiv").text("");
+	$("#checkButton").prop('disabled', true);
+	var checkplateURI = piRootPath + "/check_plate";
+    var req = new XMLHttpRequest();
+    req.open("GET", encodeURI(checkplateURI), true);
+    req.setRequestHeader("Accept", "application/json");
+    //req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    req.onreadystatechange = function () {
+        //debugger;
+        if (this.readyState == 4 /* complete */) {
+            req.onreadystatechange = null; //avoids memory leaks
+            if (this.status == 200) {
+                successPlateCallback(JSON.parse(this.responseText));
+            }
+            else {
+                errorCallback();
+            }
+        }
+    };
+    req.send();
+}
+
+function successPlateCallback(resultObj) {
+	if(resultObj.results.length > 0) {
+		var plateNum = resultObj.results[0].plate;
+		var imgUrl = resultObj.image;
+		$("#outputdiv").append("Detected plate number: " + plateNum + "<br />");
+		//alert(resultObj.results[0].plate);
+		
+		$("#outputdiv").append("<img src='" + piRootPath + imgUrl+ "' width='400' />");
+		
+		var oDataURI = Xrm.Page.context.getClientUrl()
+        + "/XRMServices/2011/OrganizationData.svc/"
+        + "ContactSet?$select=ContactId,FullName&$filter=lpa_Platenumber eq '" + plateNum +"'";
+		
+		var req = new XMLHttpRequest();
+		req.open("GET", encodeURI(oDataURI), true);
+		req.setRequestHeader("Accept", "application/json");
+		//req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+		req.onreadystatechange = function () {
+			if (this.readyState == 4 /* complete */) {
+				req.onreadystatechange = null; //avoids memory leaks
+				if (this.status == 200) {
+					successCrmCallback(JSON.parse(this.responseText).d.results);
+				}
+				else {
+					errorCallback();
+				}
+			}
+		};
+		req.send();
+	}
+	else {
+		$("#outputdiv").append("No plate detected<br />");
+		$("#checkButton").prop('disabled', false);
+	}
+}
+
+function successCrmCallback(contacts) {
+	if(contacts.length > 0) {
+		var contactUrl = Xrm.Page.context.getClientUrl() + "/main.aspx?etc=2&extraqs=&pagetype=entityrecord&id=%7b" + contacts[0].ContactId + "%7d";
+		$("#outputdiv").prepend("Contact: <a href='" + contactUrl + "' target='_blank'>" + contacts[0].FullName + "</a><br />");	
+	}
+	else {
+		//otherwise display a message that no contact could be found
+		$("#outputdiv").prepend("No contact found<br />");
+	}
+	$("#checkButton").prop('disabled', false);
+}
+
+function errorCallback() {
+	alert("error");
+	$("#checkButton").prop('disabled', false);
+}
+</script>
+</body>
+</html>
