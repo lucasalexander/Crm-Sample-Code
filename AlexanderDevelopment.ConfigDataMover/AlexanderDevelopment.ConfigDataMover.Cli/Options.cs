@@ -31,10 +31,10 @@ namespace AlexanderDevelopment.ConfigDataMover.Cli
         [Option('c', "configfile", Required = true, HelpText = "XML file containing job data")]
         public string ConfigFile { get; set; }
 
-        [Option('s', "source", Required = false, HelpText = "Simplified connection string to CRM source org - optional if connection details are specified in config file")]
+        [Option('s', "source", Required = false, HelpText = "Data source, either a simplified CRM connection string to CRM source org OR full path to source data file in the form of 'FILE=C:\\datadirectory\\datafile.json'- optional if connection details are specified in config file.")]
         public string Source { get; set; }
 
-        [Option('t', "target", Required = false, HelpText = "Simplified connection string to CRM target org - optional if connection details are specified in config file")]
+        [Option('t', "target", Required = false, HelpText = "Data target, either a simplified CRM connection string to CRM target org OR full path to target data file in the form of 'FILE=C:\\datadirectory\\datafile.json'- optional if connection details are specified in config file.")]
         public string Target { get; set; }
 
         [Option('v', "verbose", HelpText = "Print details during execution")]
