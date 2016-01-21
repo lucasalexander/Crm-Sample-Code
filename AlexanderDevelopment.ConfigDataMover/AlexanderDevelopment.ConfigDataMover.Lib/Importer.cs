@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using Microsoft.Xrm.Sdk;
@@ -29,6 +30,7 @@ using System.Xml;
 using System.IO;
 using System.Text;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace AlexanderDevelopment.ConfigDataMover.Lib
 {
@@ -46,6 +48,13 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
 
         private static CrmConnection _sourceConn;
         private static CrmConnection _targetConn;
+        private static string _sourceFile;
+        private static string _targetFile;
+        private static bool _isFileSource;
+        private static bool _isFileTarget;
+
+        private static ExportedData _savedSourceData;
+
         List<GuidMapping> _mappings = new List<GuidMapping>();
 
         /// <summary>
@@ -58,6 +67,10 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
 
         public Importer()
         {
+            _sourceFile = string.Empty;
+            _targetFile = string.Empty;
+            _isFileSource = false;
+            _isFileTarget = false;
             _mappings = new List<GuidMapping>();
             _errorCount = 0;
             log4net.Config.XmlConfigurator.Configure();
@@ -102,12 +115,45 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
         /// </summary>
         private void ParseConnections()
         {
-            LogMessage("INFO","parsing source connection");
-            _sourceConn = CrmConnection.Parse(SourceString);
+            LogMessage("INFO", "parsing source connection");
+            if (SourceString.ToUpper().StartsWith("FILE="))
+            {
+                _sourceFile = Regex.Replace(SourceString, "FILE=", "", RegexOptions.IgnoreCase);
+                _isFileSource = true;
+                LogMessage("INFO", "source is file - " + _sourceFile);
 
-            LogMessage("INFO","parsing target connection");
-            _targetConn = CrmConnection.Parse(TargetString);
+                //deserialze source data
+                using (StreamReader sr = new StreamReader(_sourceFile))
+                {
+                    LogMessage("INFO", "  deserializing source data from file");
+                    // Read the stream to a string, and write the string to the console.
+                    String lines = sr.ReadToEnd();
+                    JsonSerializerSettings settings = new JsonSerializerSettings();
+                    settings.TypeNameHandling = TypeNameHandling.None;
+                    _savedSourceData = (ExportedData)JsonConvert.DeserializeObject<ExportedData>(lines,settings);
+                    LogMessage("INFO", "  source data deserialization complete");
 
+                }
+            }
+            else
+            {
+                _sourceConn = CrmConnection.Parse(SourceString);
+                _isFileSource = false;
+            }
+
+            LogMessage("INFO", "parsing target connection");
+            if (TargetString.ToUpper().StartsWith("FILE="))
+            {
+                _targetFile = Regex.Replace(TargetString, "FILE=", "", RegexOptions.IgnoreCase);
+                _savedSourceData = new ExportedData();
+                _isFileTarget = true;
+                LogMessage("INFO", "target is file - " + _targetFile);
+            }
+            else
+            {
+                _targetConn = CrmConnection.Parse(TargetString);
+                _isFileTarget = false;
+            }
         }
 
         /// <summary>
@@ -123,14 +169,27 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
             Guid sourceBaseCurrency = Guid.Empty;
             Guid targetBaseCurrency = Guid.Empty;
 
-            using (OrganizationService service = new OrganizationService(_sourceConn))
+            if (_isFileSource)
             {
                 if (MapBaseBu)
                 {
-                    LogMessage("INFO","querying source base business unit");
-                    try
+                    sourceBaseBu = _savedSourceData.BaseBu;
+                }
+                if (MapBaseCurrency)
+                {
+                    sourceBaseCurrency = _savedSourceData.BaseCurrency;
+                }
+            }
+            else
+            {
+                using (OrganizationService service = new OrganizationService(_sourceConn))
+                {
+                    if (MapBaseBu)
                     {
-                        string baseBuFetchXml = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                        LogMessage("INFO", "querying source base business unit");
+                        try
+                        {
+                            string baseBuFetchXml = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
                           <entity name='businessunit'>
                             <attribute name='name' />
                             <attribute name='businessunitid' />
@@ -139,47 +198,50 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                             </filter>
                           </entity>
                         </fetch>";
-                        EntityCollection buEntities = service.RetrieveMultiple(new FetchExpression(baseBuFetchXml));
-                        sourceBaseBu = (Guid)(buEntities[0]["businessunitid"]);
+                            EntityCollection buEntities = service.RetrieveMultiple(new FetchExpression(baseBuFetchXml));
+                            sourceBaseBu = (Guid)(buEntities[0]["businessunitid"]);
+                        }
+                        catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
+                        {
+                            string errormsg = string.Format(string.Format("could not retrieve source base business unit: {0}", ex.Message));
+                            LogMessage("ERROR", errormsg);
+                            throw new Exception(errormsg);
+                        }
                     }
-                    catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
-                    {
-                        string errormsg = string.Format(string.Format("could not retrieve source base business unit: {0}", ex.Message));
-                        LogMessage("ERROR",errormsg);
-                        throw new Exception(errormsg);
-                    }
-                }
 
-                if (MapBaseCurrency)
-                {
-                    LogMessage("INFO","querying source base currency");
-                    try
+                    if (MapBaseCurrency)
                     {
-                        string baseCurrencyFetchXml = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                        LogMessage("INFO", "querying source base currency");
+                        try
+                        {
+                            string baseCurrencyFetchXml = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
                           <entity name='organization'>
                             <attribute name='basecurrencyid' />
                           </entity>
                         </fetch>";
-                        EntityCollection currencyEntities = service.RetrieveMultiple(new FetchExpression(baseCurrencyFetchXml));
-                        sourceBaseCurrency = ((EntityReference)currencyEntities[0]["basecurrencyid"]).Id;
-                    }
-                    catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
-                    {
-                        string errormsg = string.Format(string.Format("could not source target base currency: {0}", ex.Message));
-                        LogMessage("ERROR",errormsg);
-                        throw new Exception(errormsg);
+                            EntityCollection currencyEntities = service.RetrieveMultiple(new FetchExpression(baseCurrencyFetchXml));
+                            sourceBaseCurrency = ((EntityReference)currencyEntities[0]["basecurrencyid"]).Id;
+                        }
+                        catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
+                        {
+                            string errormsg = string.Format(string.Format("could not source target base currency: {0}", ex.Message));
+                            LogMessage("ERROR", errormsg);
+                            throw new Exception(errormsg);
+                        }
                     }
                 }
             }
 
-            using (OrganizationService service = new OrganizationService(_targetConn))
+            if (!_isFileTarget)
             {
-                if (MapBaseBu)
+                using (OrganizationService service = new OrganizationService(_targetConn))
                 {
-                    LogMessage("INFO","querying target base business unit");
-                    try
+                    if (MapBaseBu)
                     {
-                        string baseBuFetchXml = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                        LogMessage("INFO", "querying target base business unit");
+                        try
+                        {
+                            string baseBuFetchXml = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
                           <entity name='businessunit'>
                             <attribute name='name' />
                             <attribute name='businessunitid' />
@@ -188,38 +250,41 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                             </filter>
                           </entity>
                         </fetch>";
-                        EntityCollection buEntities = service.RetrieveMultiple(new FetchExpression(baseBuFetchXml));
-                        targetBaseBu = (Guid)(buEntities[0]["businessunitid"]);
+                            EntityCollection buEntities = service.RetrieveMultiple(new FetchExpression(baseBuFetchXml));
+                            targetBaseBu = (Guid)(buEntities[0]["businessunitid"]);
+                        }
+                        catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
+                        {
+                            string errormsg = string.Format("could not retrieve target base business unit: {0}", ex.Message);
+                            LogMessage("ERROR", errormsg);
+                            throw new Exception(errormsg);
+                        }
                     }
-                    catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
-                    {
-                        string errormsg = string.Format("could not retrieve target base business unit: {0}", ex.Message);
-                        LogMessage("ERROR",errormsg);
-                        throw new Exception(errormsg);
-                    }
-                }
 
-                if (MapBaseCurrency)
-                {
-                    LogMessage("INFO","querying target base currency");
-                    try
+                    if (MapBaseCurrency)
                     {
-                        string baseCurrencyFetchXml = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                        LogMessage("INFO", "querying target base currency");
+                        try
+                        {
+                            string baseCurrencyFetchXml = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
                           <entity name='organization'>
                             <attribute name='basecurrencyid' />
                           </entity>
                         </fetch>";
-                        EntityCollection currencyEntities = service.RetrieveMultiple(new FetchExpression(baseCurrencyFetchXml));
-                        targetBaseCurrency = ((EntityReference)currencyEntities[0]["basecurrencyid"]).Id;
-                    }
-                    catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
-                    {
-                        string errormsg = string.Format(string.Format("could not retrieve target base currency: {0}", ex.Message));
-                        LogMessage("ERROR",errormsg);
-                        throw new Exception(errormsg);
+                            EntityCollection currencyEntities = service.RetrieveMultiple(new FetchExpression(baseCurrencyFetchXml));
+                            targetBaseCurrency = ((EntityReference)currencyEntities[0]["basecurrencyid"]).Id;
+                        }
+                        catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
+                        {
+                            string errormsg = string.Format(string.Format("could not retrieve target base currency: {0}", ex.Message));
+                            LogMessage("ERROR", errormsg);
+                            throw new Exception(errormsg);
+                        }
                     }
                 }
+
             }
+
 
             if (MapBaseBu)
             {
@@ -228,14 +293,24 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                 {
                     _mappings.Add(new GuidMapping { sourceId = sourceBaseBu, targetId = targetBaseBu });
                 }
+
+                if (_isFileTarget)
+                {
+                    _savedSourceData.BaseBu = sourceBaseBu;
+                }
             }
 
-            if (MapBaseBu)
+            if (MapBaseCurrency)
             {
                 LogMessage("INFO","setting base currency GUID mapping");
                 if (sourceBaseCurrency != Guid.Empty && targetBaseCurrency != Guid.Empty)
                 {
                     _mappings.Add(new GuidMapping { sourceId = sourceBaseCurrency, targetId = targetBaseCurrency });
+                }
+
+                if (_isFileTarget)
+                {
+                    _savedSourceData.BaseCurrency = sourceBaseCurrency;
                 }
             }
 
@@ -313,136 +388,263 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
 
             SetupGuidMappings();
 
-            LogMessage("INFO","processing records");
-            OrganizationService sourceService = new OrganizationService(_sourceConn);
-            OrganizationService targetService = new OrganizationService(_targetConn);
+            LogMessage("INFO", "processing records");
 
-            foreach (var item in JobSteps)
+            for (int i = 0; i < JobSteps.Count; i++)
             {
+                var item = JobSteps[i];
                 JobStep step = (JobStep)item;
-                LogMessage("INFO",string.Format("starting step {0}", step.StepName));
-                string fetchQuery = step.StepFetch;
-
-                LogMessage("INFO","  retrieving records");
-
-                // Set the number of records per page to retrieve.
-                int fetchCount = 5000;
-                
-                // Initialize the page number.
-                int pageNumber = 1;
-
-                // Specify the current paging cookie. For retrieving the first page, 
-                // pagingCookie should be null.
-                string pagingCookie = null;
+                LogMessage("INFO", string.Format("starting step {0}", step.StepName));
 
                 //create a list of entities to hold retrieved entities so we can page through results
                 List<Entity> ec = new List<Entity>();
 
-                while (true)
+                if (_isFileSource)
                 {
-                    // Build fetchXml string with the placeholders.
-                    string fetchXml = CreateXml(fetchQuery, pagingCookie, pageNumber, fetchCount);
-
-                    EntityCollection retrieved = sourceService.RetrieveMultiple(new FetchExpression(fetchXml));
-                    ec.AddRange(retrieved.Entities);
-
-                    if (retrieved.MoreRecords)
+                    LogMessage("INFO", "  preparing data from source file for update/import");
+                    foreach (var e in _savedSourceData.RecordSets[i])
                     {
-                        // Increment the page number to retrieve the next page.
-                        pageNumber++;
-
-                        // Set the paging cookie to the paging cookie returned from current results.                            
-                        pagingCookie = retrieved.PagingCookie;
-                    }
-                    else
-                    {
-                        // If no more records in the result nodes, exit the loop.
-                        break;
+                        Entity entity = new Entity(e.LogicalName);
+                        entity.Id = e.Id;
+                        entity.LogicalName = e.LogicalName;
+                        foreach (ExportAttribute exportAttribute in e.Attributes)
+                        {
+                            Newtonsoft.Json.Linq.JObject jObject;
+                            object attributeValue = null;
+                            string attributeName = exportAttribute.AttributeName;
+                            switch (exportAttribute.AttributeType)
+                            {
+                                case "Microsoft.Xrm.Sdk.EntityReference":
+                                    jObject = (Newtonsoft.Json.Linq.JObject)exportAttribute.AttributeValue;
+                                    EntityReference lookup = new EntityReference((string)jObject["LogicalName"], (Guid)jObject["Id"]);
+                                    attributeValue = lookup;
+                                    break;
+                                case "Microsoft.Xrm.Sdk.OptionSetValue":
+                                    jObject = (Newtonsoft.Json.Linq.JObject)exportAttribute.AttributeValue;
+                                    attributeValue = new OptionSetValue { Value = (int)jObject["Value"] };
+                                    break;
+                                case "Microsoft.Xrm.Sdk.Money":
+                                    jObject = (Newtonsoft.Json.Linq.JObject)exportAttribute.AttributeValue;
+                                    attributeValue = new Microsoft.Xrm.Sdk.Money { Value = (decimal)jObject["Value"] };
+                                    break;
+                                default:
+                                    attributeValue = exportAttribute.AttributeValue;
+                                    break;
+                            }
+                            entity.Attributes.Add(attributeName, attributeValue);
+                        }
+                        ec.Add(entity);
                     }
                 }
+                else
+                {
+                    OrganizationService sourceService = new OrganizationService(_sourceConn);
 
-                LogMessage("INFO",string.Format("  {0} records retrieved", ec.Count));
+                    string fetchQuery = step.StepFetch;
+
+                    LogMessage("INFO", "  retrieving records");
+
+                    // Set the number of records per page to retrieve.
+                    int fetchCount = 5000;
+
+                    // Initialize the page number.
+                    int pageNumber = 1;
+
+                    // Specify the current paging cookie. For retrieving the first page, 
+                    // pagingCookie should be null.
+                    string pagingCookie = null;
+
+                    while (true)
+                    {
+                        // Build fetchXml string with the placeholders.
+                        string fetchXml = CreateXml(fetchQuery, pagingCookie, pageNumber, fetchCount);
+
+                        EntityCollection retrieved = sourceService.RetrieveMultiple(new FetchExpression(fetchXml));
+                        ec.AddRange(retrieved.Entities);
+
+                        if (retrieved.MoreRecords)
+                        {
+                            // Increment the page number to retrieve the next page.
+                            pageNumber++;
+
+                            // Set the paging cookie to the paging cookie returned from current results.                            
+                            pagingCookie = retrieved.PagingCookie;
+                        }
+                        else
+                        {
+                            // If no more records in the result nodes, exit the loop.
+                            break;
+                        }
+                    }
+                    LogMessage("INFO", string.Format("  {0} records retrieved", ec.Count));
+                }
+
                 if (ec.Count > 0)
                 {
-                    foreach (Entity entity in ec)
+                    //_savedSourceData.RecordSets = new List<EntityCollection>();
+                    if (!_isFileTarget)
                     {
-                        //create a list to hold the replacement guids. a second pass is required because c# disallows modifying a collection while enumerating
-                        List<KeyValuePair<string, object>> guidsToUpdate = new List<KeyValuePair<string, object>>();
-                        LogMessage("INFO",string.Format("  processing record {0}, {1}", entity.Id, entity.LogicalName));
-                        try
+                        foreach (Entity entity in ec)
                         {
-                            LogMessage("INFO","    processing GUID replacements");
-                            foreach (KeyValuePair<string, object> attribute in entity.Attributes)
-                            {
-                                //LogMessage("INFO",string.Format("Attribute - {0} {1}", attribute.Key, attribute.Value.GetType().ToString()));
-                                if (attribute.Value is Microsoft.Xrm.Sdk.EntityReference)
-                                {
-                                    //LogMessage("INFO","getting source");
 
-                                    EntityReference source = ((EntityReference)attribute.Value);
-                                    try
-                                    {
-                                        //LogMessage("INFO","looking for GUID replacement");
-                                        Guid sourceId = source.Id;
-                                        Guid targetId = _mappings.Find(t => t.sourceId == source.Id).targetId;
-                                        source.Id = targetId;
-                                        guidsToUpdate.Add(new KeyValuePair<string, object>(attribute.Key, source));
-                                        //LogMessage("INFO",string.Format("replacement found - {0} -> {1}", sourceId, targetId));
-                                    }
-                                    catch (System.NullReferenceException ex)
-                                    {
-                                        //LogMessage("INFO", "NullReferenceException happened");
-                                        //do nothing because nullreferenceexception means there's no guid mapping to use
-                                    }
-                                }
-                            }
+                            OrganizationService targetService = new OrganizationService(_targetConn);
 
-                            //now actually update the GUIDs with the mapped values
-                            foreach (KeyValuePair<string, object> attribute in guidsToUpdate)
-                            {
-                                //LogMessage("INFO",string.Format("    replacing attribute GUID {0} {1}", attribute.Key, attribute.Value));
-                                entity[attribute.Key] = attribute.Value;
-                            }
-
-                            //try to update first
+                            //create a list to hold the replacement guids. a second pass is required because c# disallows modifying a collection while enumerating
+                            List<KeyValuePair<string, object>> guidsToUpdate = new List<KeyValuePair<string, object>>();
+                            LogMessage("INFO", string.Format("  processing record {0}, {1}", entity.Id, entity.LogicalName));
                             try
                             {
-                                LogMessage("INFO","    trying target update");
-                                targetService.Update(entity);
-                                LogMessage("INFO","    update ok");
+                                LogMessage("INFO", "    processing GUID replacements");
+                                foreach (KeyValuePair<string, object> attribute in entity.Attributes)
+                                {
+                                    //LogMessage("INFO",string.Format("Attribute - {0} {1}", attribute.Key, attribute.Value.GetType().ToString()));
+                                    if (attribute.Value is Microsoft.Xrm.Sdk.EntityReference)
+                                    {
+                                        //LogMessage("INFO","getting source");
+
+                                        EntityReference source = ((EntityReference)attribute.Value);
+                                        try
+                                        {
+                                            //LogMessage("INFO","looking for GUID replacement");
+                                            Guid sourceId = source.Id;
+                                            Guid targetId = _mappings.Find(t => t.sourceId == source.Id).targetId;
+                                            source.Id = targetId;
+                                            guidsToUpdate.Add(new KeyValuePair<string, object>(attribute.Key, source));
+                                            //LogMessage("INFO",string.Format("replacement found - {0} -> {1}", sourceId, targetId));
+                                        }
+                                        catch (System.NullReferenceException ex)
+                                        {
+                                            //LogMessage("INFO", "NullReferenceException happened");
+                                            //do nothing because nullreferenceexception means there's no guid mapping to use
+                                        }
+                                    }
+                                }
+
+                                //now actually update the GUIDs with the mapped values
+                                foreach (KeyValuePair<string, object> attribute in guidsToUpdate)
+                                {
+                                    //LogMessage("INFO",string.Format("    replacing attribute GUID {0} {1}", attribute.Key, attribute.Value));
+                                    entity[attribute.Key] = attribute.Value;
+                                }
+
+                                //try to update first
+                                try
+                                {
+                                    LogMessage("INFO", "    trying target update");
+                                    targetService.Update(entity);
+                                    LogMessage("INFO", "    update ok");
+                                }
+                                catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
+                                {
+                                    if (!step.UpdateOnly)
+                                    {
+                                        LogMessage("INFO", "    trying target create");
+                                        //if update fails and step is not update-only then try to create
+                                        targetService.Create(entity);
+                                        LogMessage("INFO", "    create ok");
+                                    }
+                                    else
+                                    {
+                                        throw new FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault>(ex.Detail);
+                                    }
+                                }
                             }
                             catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
                             {
-                                if (!step.UpdateOnly)
-                                {
-                                    LogMessage("INFO","    trying target create");
-                                    //if update fails and step is not update-only then try to create
-                                    targetService.Create(entity);
-                                    LogMessage("INFO","    create ok");
-                                }
-                                else
-                                {
-                                    throw new FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault>(ex.Detail);
-                                }
+                                //if everything fails, log error
+                                //to main log
+                                LogMessage("ERROR", string.Format("    record transfer failed"));
+
+                                //to record error log
+                                LogMessage("ERROR", string.Format("RECORD ERROR: {0}, {1}", entity.Id, entity.LogicalName));
+
+                                //increment the error count
+                                _errorCount++;
                             }
-                        }
-                        catch (FaultException<Microsoft.Xrm.Sdk.OrganizationServiceFault> ex)
-                        {
-                            //if everything fails, log error
-                            //to main log
-                            LogMessage("ERROR", string.Format("    record transfer failed"));
-
-                            //to record error log
-                            LogMessage("ERROR", string.Format("RECORD ERROR: {0}, {1}", entity.Id, entity.LogicalName));
-
-                            //increment the error count
-                            _errorCount++;
                         }
                     }
                 }
+                if (_isFileTarget)
+                {
+                    LogMessage("INFO", "  preparing records for serialization");
+                    List<ExportEntity> entitiesToExport = new List<ExportEntity>();
+                    foreach(Entity e in ec)
+                    {
+                        ExportEntity exportEntity = new ExportEntity();
+                        exportEntity.Id = e.Id;
+                        exportEntity.LogicalName = e.LogicalName;
+                        foreach(var attribute in e.Attributes)
+                        {
+                            if ((attribute.Key.ToUpper() != e.LogicalName.ToUpper() + "ID") 
+                                && (attribute.Key.ToUpper() != "LOGICALNAME"))
+                            {
+                                ExportAttribute exportAttribute = new ExportAttribute();
+                                exportAttribute.AttributeName = attribute.Key;
+                                exportAttribute.AttributeValue = attribute.Value;
+                                exportAttribute.AttributeType = attribute.Value.GetType().ToString();
+                                exportEntity.Attributes.Add(exportAttribute);
+                            }
+                        }
+                        entitiesToExport.Add(exportEntity);
+                    }
+                    _savedSourceData.RecordSets.Add(entitiesToExport);
+               }
             }
-            LogMessage("INFO","job complete");
+            if (_isFileTarget)
+            {
+                LogMessage("INFO", "  serializing data to target file");
+                JsonSerializer serializer = new JsonSerializer();
+                using (StreamWriter sw = new StreamWriter(_targetFile))
+                {
+                    using (JsonWriter writer = new JsonTextWriter(sw))
+                    {
+                        serializer.NullValueHandling = NullValueHandling.Ignore;
+                        serializer.TypeNameHandling = TypeNameHandling.None;
+                        serializer.Formatting = Newtonsoft.Json.Formatting.None;
+                        serializer.Serialize(writer, _savedSourceData);
+                    }
+                }
+                LogMessage("INFO", "data serialization complete");
+            }
+            LogMessage("INFO", "job complete");
             logger.Logger.Repository.Shutdown();
         }
+    }
+
+    [Serializable()]
+    class ExportedData
+    {
+        public Guid BaseBu { get; set; }
+        public Guid BaseCurrency { get; set; }
+        public List<List<ExportEntity>> RecordSets { get; set; }
+
+        public ExportedData()
+        {
+            RecordSets = new List<List<ExportEntity>>();
+            BaseBu = Guid.Empty;
+            BaseCurrency = Guid.Empty;
+            Entity e = new Entity();
+        }
+    }
+
+    [Serializable()]
+    class ExportEntity
+    {
+        public string LogicalName { get; set; }
+        public Guid Id { get; set; }
+        public List<ExportAttribute> Attributes { get; set; }
+
+        public ExportEntity()
+        {
+            Attributes = new List<ExportAttribute>(); ;
+        }
+    }
+
+    [Serializable()]
+    class ExportAttribute
+    {
+        public string AttributeName { get; set; }
+        public object AttributeValue { get; set; }
+        public string AttributeType { get; set; }
     }
 }
