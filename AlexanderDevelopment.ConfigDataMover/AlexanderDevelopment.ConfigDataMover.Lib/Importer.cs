@@ -169,6 +169,7 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
             Guid sourceBaseCurrency = Guid.Empty;
             Guid targetBaseCurrency = Guid.Empty;
 
+            //if data is coming from file source, read base BU and base currency from file
             if (_isFileSource)
             {
                 if (MapBaseBu)
@@ -180,7 +181,7 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                     sourceBaseCurrency = _savedSourceData.BaseCurrency;
                 }
             }
-            else
+            else //otherwise we need to look them up in the source org
             {
                 using (OrganizationService service = new OrganizationService(_sourceConn))
                 {
@@ -232,6 +233,7 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                 }
             }
 
+            //if we're not writing data to a target crm org instead of a file, we need to look up the target base BU and currency
             if (!_isFileTarget)
             {
                 using (OrganizationService service = new OrganizationService(_targetConn))
@@ -285,7 +287,7 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
 
             }
 
-
+            //add the source/target mappings to the guid mappings list
             if (MapBaseBu)
             {
                 LogMessage("INFO","setting base business unit GUID mapping");
@@ -294,6 +296,7 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                     _mappings.Add(new GuidMapping { sourceId = sourceBaseBu, targetId = targetBaseBu });
                 }
 
+                //if our target is a file, make sure we save the base BU
                 if (_isFileTarget)
                 {
                     _savedSourceData.BaseBu = sourceBaseBu;
@@ -308,6 +311,7 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                     _mappings.Add(new GuidMapping { sourceId = sourceBaseCurrency, targetId = targetBaseCurrency });
                 }
 
+                //if our target is a file, make sure we save the base currency
                 if (_isFileTarget)
                 {
                     _savedSourceData.BaseCurrency = sourceBaseCurrency;
@@ -382,14 +386,32 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
         /// </summary>
         public void Process()
         {
+            OrganizationService sourceService = null;
+            OrganizationService targetService = null;
+
+            //set up logging
             logger = LogManager.GetLogger(typeof(Importer));
             LogMessage("INFO", "starting job");
+
+            //establish connections and/or read source data from file
             ParseConnections();
 
+            //connect to source and target if necessary
+            if (!_isFileSource)
+            {
+                sourceService = new OrganizationService(_sourceConn);
+            }
+            if (!_isFileTarget)
+            {
+                targetService = new OrganizationService(_targetConn);
+            }
+
+            //create the guid mappings table
             SetupGuidMappings();
 
             LogMessage("INFO", "processing records");
 
+            //loop through each job step
             for (int i = 0; i < JobSteps.Count; i++)
             {
                 var item = JobSteps[i];
@@ -399,47 +421,65 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                 //create a list of entities to hold retrieved entities so we can page through results
                 List<Entity> ec = new List<Entity>();
 
+                //if data is coming from a file
                 if (_isFileSource)
                 {
                     LogMessage("INFO", "  preparing data from source file for update/import");
+
+                    //get the recordset in the file that corresponds to the current job step and loop through it
                     foreach (var e in _savedSourceData.RecordSets[i])
                     {
+                        //instantiate a new crm entity object
                         Entity entity = new Entity(e.LogicalName);
                         entity.Id = e.Id;
                         entity.LogicalName = e.LogicalName;
+
+                        //loop through the attributes stored in the file
                         foreach (ExportAttribute exportAttribute in e.Attributes)
                         {
+                            //JObject object if we need to parse a complex type
                             Newtonsoft.Json.Linq.JObject jObject;
+
+                            //instantiate a new object to hold the attribute value
                             object attributeValue = null;
+
+                            //give the attribute the correct name
                             string attributeName = exportAttribute.AttributeName;
+
+                            //check the stored attribute type in the file and set the crm entity's attribute values accordingly
                             switch (exportAttribute.AttributeType)
                             {
+                                //if it's an entityreference
                                 case "Microsoft.Xrm.Sdk.EntityReference":
                                     jObject = (Newtonsoft.Json.Linq.JObject)exportAttribute.AttributeValue;
                                     EntityReference lookup = new EntityReference((string)jObject["LogicalName"], (Guid)jObject["Id"]);
                                     attributeValue = lookup;
                                     break;
+                                //if it's an optionsetvalue
                                 case "Microsoft.Xrm.Sdk.OptionSetValue":
                                     jObject = (Newtonsoft.Json.Linq.JObject)exportAttribute.AttributeValue;
                                     attributeValue = new OptionSetValue { Value = (int)jObject["Value"] };
                                     break;
+                                //if it's money
                                 case "Microsoft.Xrm.Sdk.Money":
                                     jObject = (Newtonsoft.Json.Linq.JObject)exportAttribute.AttributeValue;
                                     attributeValue = new Microsoft.Xrm.Sdk.Money { Value = (decimal)jObject["Value"] };
                                     break;
+                                //if it's anything else - i think this covers everything we would typically need
                                 default:
                                     attributeValue = exportAttribute.AttributeValue;
                                     break;
                             }
+                            //add the attribute name and value to the entity's attributes collection
                             entity.Attributes.Add(attributeName, attributeValue);
                         }
+
+                        //add the entity to the entity collection
                         ec.Add(entity);
                     }
                 }
-                else
+                else //source is live crm org
                 {
-                    OrganizationService sourceService = new OrganizationService(_sourceConn);
-
                     string fetchQuery = step.StepFetch;
 
                     LogMessage("INFO", "  retrieving records");
@@ -481,13 +521,12 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
 
                 if (ec.Count > 0)
                 {
-                    //_savedSourceData.RecordSets = new List<EntityCollection>();
+                    //if the target is a live crm org
                     if (!_isFileTarget)
                     {
+                        //loop through each entity in the collection
                         foreach (Entity entity in ec)
                         {
-
-                            OrganizationService targetService = new OrganizationService(_targetConn);
 
                             //create a list to hold the replacement guids. a second pass is required because c# disallows modifying a collection while enumerating
                             List<KeyValuePair<string, object>> guidsToUpdate = new List<KeyValuePair<string, object>>();
@@ -564,17 +603,25 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                         }
                     }
                 }
+                
+                //if the target is a file - prepare the records in this step for serialization later
                 if (_isFileTarget)
                 {
                     LogMessage("INFO", "  preparing records for serialization");
+
+                    //instantiate a new list of exportentity objects
                     List<ExportEntity> entitiesToExport = new List<ExportEntity>();
+
+                    //loop through each entity in the collection
                     foreach(Entity e in ec)
                     {
+                        //instantiate a new exportentity object and set its fields appropriately
                         ExportEntity exportEntity = new ExportEntity();
                         exportEntity.Id = e.Id;
                         exportEntity.LogicalName = e.LogicalName;
                         foreach(var attribute in e.Attributes)
                         {
+                            //leave out the entity id and logical name from the attribute collection - they cause problems on import
                             if ((attribute.Key.ToUpper() != e.LogicalName.ToUpper() + "ID") 
                                 && (attribute.Key.ToUpper() != "LOGICALNAME"))
                             {
@@ -585,32 +632,55 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
                                 exportEntity.Attributes.Add(exportAttribute);
                             }
                         }
+
+                        //add the exportentity object to the recordset
                         entitiesToExport.Add(exportEntity);
                     }
+
+                    //add the recordset to the exporteddata object to be serialized
                     _savedSourceData.RecordSets.Add(entitiesToExport);
                }
             }
+
+            //if the target is a file - serialize the data and write it to a file
             if (_isFileTarget)
             {
                 LogMessage("INFO", "  serializing data to target file");
+
+                //instantiate a new jsonserializer
                 JsonSerializer serializer = new JsonSerializer();
+
+                //write to the target file path
                 using (StreamWriter sw = new StreamWriter(_targetFile))
                 {
                     using (JsonWriter writer = new JsonTextWriter(sw))
                     {
+                        //some jsonwriter options
+                        //leave out null values - this might cause problems if trying to unset a value, but not sure what the alternative approach would be
                         serializer.NullValueHandling = NullValueHandling.Ignore;
+                        
+                        //the import will vomit if this isn't "none"
                         serializer.TypeNameHandling = TypeNameHandling.None;
-                        serializer.Formatting = Newtonsoft.Json.Formatting.None;
+                        
+                        //you can change this if you want a more easily readable output file, but this makes for a smaller file size
+                        serializer.Formatting = Newtonsoft.Json.Formatting.None; 
+
+                        //serialize and save
                         serializer.Serialize(writer, _savedSourceData);
                     }
                 }
                 LogMessage("INFO", "data serialization complete");
             }
             LogMessage("INFO", "job complete");
+
+            //stop logging
             logger.Logger.Repository.Shutdown();
         }
     }
 
+    /// <summary>
+    /// class used to save data to a file
+    /// </summary>
     [Serializable()]
     class ExportedData
     {
@@ -627,6 +697,9 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
         }
     }
 
+    /// <summary>
+    /// class used to represent a crm record - tried serializing crm sdk classes, but they would not deserialize properly
+    /// </summary>
     [Serializable()]
     class ExportEntity
     {
@@ -640,6 +713,9 @@ namespace AlexanderDevelopment.ConfigDataMover.Lib
         }
     }
 
+    /// <summary>
+    /// class used to represent a crm attribute value
+    /// </summary>
     [Serializable()]
     class ExportAttribute
     {
