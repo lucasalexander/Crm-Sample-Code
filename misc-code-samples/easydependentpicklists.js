@@ -31,7 +31,7 @@ function initializePicklistFilter(picklists, separator, optionTree){
 	var hierarchy = picklists.split("|");
 	for(var i=0;i<hierarchy.length-1;i++){
 		var	picklistName = hierarchy[i];
-		//add the filterOptions to onchange event for every picklist in the hierarchy
+		//add the filterOptions to onchange event for every picklist in the hierarchy except the last child
 		Xrm.Page.getAttribute(picklistName).addOnChange(filterOptions);
 	}
 
@@ -47,9 +47,24 @@ function initializePicklistFilter(picklists, separator, optionTree){
 	Xrm.Page.getAttribute(hierarchy[0]).fireOnChange();
 }
 
-/** Applies the filtering to a dependent picklist hierarchy onchange of one of the hierarchy members. */
+/** Used to initiate filtering based on field event. */
 function filterOptions(executionContext){
-debugger;
+	//get the name of the picklist that just changed
+	var callingControlName = executionContext.getEventSource().getName();
+
+    if(callingControlName){
+        applyFilters(callingControlName);
+    }
+}
+
+/** Applies the filtering to the dependent picklist hierarchy that contains a particular attribute. */
+function applyFilters(callingControlName){
+	//get the filteredpicklist object that contains the calling picklist
+	var currentFilteredPicklist = getFilteredPicklist(callingControlName, _filteredPicklists);
+	if(!currentFilteredPicklist){
+		console.log("Error");
+		return;
+	}
 	//get the name of the picklist that just changed
 	var callingControlName = executionContext.getEventSource().getName();
 
@@ -78,8 +93,10 @@ debugger;
 		var attribute = Xrm.Page.getAttribute(picklistName);
 		var existingattributeoptions = attribute.getOptions();
 		
-		//temporarily remove onchange event
-		attribute.removeOnChange(filterOptions);
+		//temporarily remove onchange event for every picklist except the last child
+		if(i<hierarchy.length-1){
+			attribute.removeOnChange(filterOptions);
+		}
 
 		//get the currently selected option and store it for use later (will be null if nothing is selected)
 		var selectedOption = Xrm.Page.getAttribute(picklistName).getSelectedOption();
