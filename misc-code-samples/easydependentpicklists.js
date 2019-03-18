@@ -53,12 +53,12 @@ function filterOptions(executionContext){
 	var callingControlName = executionContext.getEventSource().getName();
 
     if(callingControlName){
-        applyFilters(callingControlName);
+        applyFilters(callingControlName, executionContext);
     }
 }
 
 /** Applies the filtering to the dependent picklist hierarchy that contains a particular attribute. */
-function applyFilters(callingControlName){
+function applyFilters(callingControlName, executionContext){
 	//get the filteredpicklist object that contains the calling picklist
 	var currentFilteredPicklist = getFilteredPicklist(callingControlName, _filteredPicklists);
 	if(!currentFilteredPicklist){
